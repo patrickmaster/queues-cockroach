@@ -1,4 +1,5 @@
 ﻿using System;
+using Queue.Common.DI;
 using Queue.ConsoleUI.DI;
 
 namespace Queue.ConsoleUI.Solver

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E48EAD95-093D-44E9-B62E-3A29621547C8}</ProjectGuid>
+    <ProjectGuid>{D3FFAD3C-46CD-4B3D-8C7D-3FB431FF9C94}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Queue.Algorithm</RootNamespace>
-    <AssemblyName>Queue.Algorithm</AssemblyName>
+    <RootNamespace>Queue.Common</RootNamespace>
+    <AssemblyName>Queue.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,26 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\BcmpInput.cs" />
-    <Compile Include="Data\Input.cs" />
-    <Compile Include="Data\Output.cs" />
-    <Compile Include="DI\DependencyConfig.cs" />
-    <Compile Include="IBcmpDataProvider.cs" />
-    <Compile Include="IBcmpOneSolver.cs" />
-    <Compile Include="IBcmpOneSolverFactory.cs" />
-    <Compile Include="IBcmpThreeSolver.cs" />
-    <Compile Include="IBcmpThreeSolverFactory.cs" />
-    <Compile Include="IJacksonDataProvider.cs" />
-    <Compile Include="IJacksonSolver.cs" />
-    <Compile Include="IJacksonSolverFactory.cs" />
+    <Compile Include="DI\AutofacExtensions.cs" />
+    <Compile Include="DI\IResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SolverFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Queue.Common\Queue.Common.csproj">
-      <Project>{D3FFAD3C-46CD-4B3D-8C7D-3FB431FF9C94}</Project>
-      <Name>Queue.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

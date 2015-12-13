@@ -50,9 +50,7 @@
     <Compile Include="DataLoading\IJacksonFileDataLoader.cs" />
     <Compile Include="DataLoading\JacksonDataProvider.cs" />
     <Compile Include="DataLoading\JacksonXmlDataLoader.cs" />
-    <Compile Include="DI\AutofacExtensions.cs" />
     <Compile Include="DI\Dependency.cs" />
-    <Compile Include="DI\IResolver.cs" />
     <Compile Include="FilesystemHelper.cs" />
     <Compile Include="Solver\BcmpOneSolver.cs" />
     <Compile Include="Solver\BcmpThreeSolver.cs" />
@@ -74,6 +72,10 @@
     <ProjectReference Include="..\Queue.Algorithm\Queue.Algorithm.csproj">
       <Project>{e48ead95-093d-44e9-b62e-3a29621547c8}</Project>
       <Name>Queue.Algorithm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Queue.Common\Queue.Common.csproj">
+      <Project>{D3FFAD3C-46CD-4B3D-8C7D-3FB431FF9C94}</Project>
+      <Name>Queue.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
