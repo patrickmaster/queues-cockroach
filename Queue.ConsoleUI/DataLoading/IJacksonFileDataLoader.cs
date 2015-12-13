@@ -2,10 +2,8 @@ using Queue.Algorithm.Data;
 
 namespace Queue.ConsoleUI.DataLoading
 {
-    internal interface IFileDataLoader
+    internal interface IJacksonFileDataLoader
     {
         Input LoadInputForJackson(string filename);
-
-        BcmpInput LoadInputForBcmp(string filename);
     }
 }

@@ -4,7 +4,7 @@ using Queue.Algorithm.Data;
 
 namespace Queue.ConsoleUI.DataLoading
 {
-    class XmlDataLoader : IFileDataLoader
+    class XmlDataLoader : IJacksonFileDataLoader
     {
         public Input LoadInputForJackson(string filename)
         {
@@ -69,11 +69,6 @@ namespace Queue.ConsoleUI.DataLoading
                 throw new Exception("Wrong xml file format");
             }
             return input;
-        }
-
-        public BcmpInput LoadInputForBcmp(string filename)
-        {
-            throw new NotImplementedException();
         }
     }
 }
