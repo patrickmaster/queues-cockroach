@@ -1,3 +1,4 @@
+
 namespace Queue.ConsoleUI.Solver
 {
     internal interface ISolver

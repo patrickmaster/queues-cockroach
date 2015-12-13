@@ -8,7 +8,7 @@ using Autofac;
 
 namespace Queue.ConsoleUI.DI
 {
-    class Dependency
+    static class Dependency
     {
         public static IContainer Register()
         {
@@ -18,9 +18,15 @@ namespace Queue.ConsoleUI.DI
                 .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .AsImplementedInterfaces();
 
+            var resolver = new Resolver();
+            builder.Register<IResolver>(context => resolver);
+
             Algorithm.DI.DependencyConfig.Register(builder);
 
-            return builder.Build();
+            var container = builder.Build();
+            resolver.Container = container;
+
+            return container;
         }
     }
 }

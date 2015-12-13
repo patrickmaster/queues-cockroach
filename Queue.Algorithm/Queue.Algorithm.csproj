@@ -46,12 +46,18 @@
     <Compile Include="Data\Input.cs" />
     <Compile Include="Data\Output.cs" />
     <Compile Include="DI\DependencyConfig.cs" />
+    <Compile Include="IBcmpDataProvider.cs" />
+    <Compile Include="IBcmpOneSolver.cs" />
+    <Compile Include="IBcmpOneSolverFactory.cs" />
+    <Compile Include="IBcmpThreeSolver.cs" />
+    <Compile Include="IBcmpThreeSolverFactory.cs" />
+    <Compile Include="IJacksonDataProvider.cs" />
+    <Compile Include="IJacksonSolver.cs" />
+    <Compile Include="IJacksonSolverFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolverFactory.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Cockroach\" />
-    <Folder Include="Network\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

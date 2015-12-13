@@ -1,4 +1,5 @@
 ﻿using System;
+using Queue.ConsoleUI.DI;
 
 namespace Queue.ConsoleUI.Solver
 {
@@ -9,16 +10,23 @@ namespace Queue.ConsoleUI.Solver
 
     class SolverFactory : ISolverFactory
     {
+        private readonly IResolver _resolver;
+
+        public SolverFactory(IResolver resolver)
+        {
+            _resolver = resolver;
+        }
+
         public ISolver GetSolver(AlgorithmType problemType)
         {
             switch (problemType)
             {
                 case AlgorithmType.Jackson:
-                    return new JacksonSolver();
+                    return _resolver.Create<JacksonSolver>();
                 case AlgorithmType.BcmpOne:
-                    return new BcmpOneSolver();
+                    return _resolver.Create<BcmpOneSolver>();
                 case AlgorithmType.BcmpThree:
-                    return new BcmpThreeSolver();
+                    return _resolver.Create<BcmpThreeSolver>();
                 default:
                     throw new ArgumentOutOfRangeException("problemType", problemType, null);
             }

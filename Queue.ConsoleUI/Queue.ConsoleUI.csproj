@@ -45,20 +45,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleHelper.cs" />
+    <Compile Include="DataLoading\BcmpDataProvider.cs" />
     <Compile Include="DataLoading\IBcmpFileDataLoader.cs" />
     <Compile Include="DataLoading\IJacksonFileDataLoader.cs" />
-    <Compile Include="DataLoading\XmlDataLoader.cs" />
+    <Compile Include="DataLoading\JacksonDataProvider.cs" />
+    <Compile Include="DataLoading\JacksonXmlDataLoader.cs" />
+    <Compile Include="DI\AutofacExtensions.cs" />
     <Compile Include="DI\Dependency.cs" />
+    <Compile Include="DI\IResolver.cs" />
     <Compile Include="FilesystemHelper.cs" />
     <Compile Include="Solver\BcmpOneSolver.cs" />
     <Compile Include="Solver\BcmpThreeSolver.cs" />
     <Compile Include="Solver\ISolver.cs" />
-    <Compile Include="Solver\ISolverFactory.cs" />
+    <Compile Include="Solver\SolverFactory.cs" />
     <Compile Include="Solver\JacksonSolver.cs" />
     <Compile Include="Solver\AlgorithmType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Solver\ISolverFacade.cs" />
     <Compile Include="Solver\SolverFacade.cs" />
     <Compile Include="Solver\SolverResult.cs" />
     <Compile Include="UserInputException.cs" />

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Queue.Algorithm.Data;
-
-namespace Queue.ConsoleUI.Solver
+﻿namespace Queue.ConsoleUI.Solver
 {
+    interface ISolverFacade
+    {
+        SolverResult Solve(string filename, AlgorithmType problemType);
+    }
+
     internal class SolverFacade : ISolverFacade
     {
         private readonly ISolverFactory _solverFactory;

@@ -4,14 +4,14 @@ using Queue.Algorithm.Data;
 
 namespace Queue.ConsoleUI.DataLoading
 {
-    class XmlDataLoader : IJacksonFileDataLoader
+    class JacksonXmlDataLoader : IJacksonFileDataLoader
     {
         public Input LoadInputForJackson(string filename)
         {
-            XmlDocument JacksonInput = new XmlDocument();
-            JacksonInput.Load(filename);
+            XmlDocument jacksonInput = new XmlDocument();
+            jacksonInput.Load(filename);
             Input input = new Input();
-            var nodeLambda = JacksonInput.SelectSingleNode("/Jackson/Lambda");
+            var nodeLambda = jacksonInput.SelectSingleNode("/Jackson/Lambda");
             if (nodeLambda != null)
             {
                 input.Lambda = Double.Parse(nodeLambda.InnerText.Trim());             
@@ -20,7 +20,7 @@ namespace Queue.ConsoleUI.DataLoading
             {
                 throw new Exception("Wrong xml file format");
             }
-            var nodeMi = JacksonInput.SelectSingleNode("/Jackson/Mi");
+            var nodeMi = jacksonInput.SelectSingleNode("/Jackson/Mi");
             if (nodeMi != null)
             {
                 string[] miValues = nodeMi.InnerText.Trim().Split(';');
@@ -34,7 +34,7 @@ namespace Queue.ConsoleUI.DataLoading
             {
                 throw new Exception("Wrong xml file format");
             }
-            var nodeM = JacksonInput.SelectSingleNode("/Jackson/M");
+            var nodeM = jacksonInput.SelectSingleNode("/Jackson/M");
             if (nodeM != null)
             {
                 string[] mValues = nodeM.InnerText.Trim().Split(';');
@@ -48,7 +48,7 @@ namespace Queue.ConsoleUI.DataLoading
             {
                 throw new Exception("Wrong xml file format");
             }
-            var nodeP = JacksonInput.SelectSingleNode("/Jackson/P");
+            var nodeP = jacksonInput.SelectSingleNode("/Jackson/P");
             if (nodeP != null)
             {
                 string[] pRows = nodeP.InnerText.Trim().Split('\n');
