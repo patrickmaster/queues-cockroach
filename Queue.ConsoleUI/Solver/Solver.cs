@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Queue.Algorithm
+namespace Queue.ConsoleUI.Solver
 {
-    public class Class1
+    class Solver
     {
     }
 }

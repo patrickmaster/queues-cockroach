@@ -67,11 +67,4 @@ namespace Queue.ConsoleUI.Data
             throw new NotImplementedException();
         }
     }
-
-    internal interface IFileDataLoader
-    {
-        Input LoadInputForJackson(string filename);
-
-        BcmpInput LoadInputForBcmp(string filename);
-    }
 }

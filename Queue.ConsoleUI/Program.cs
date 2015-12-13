@@ -9,32 +9,35 @@ using Queue.ConsoleUI.Data;
 
 namespace Queue.ConsoleUI
 {
-    class Program
+    internal class Program
     {
         private static void Main(string[] args)
         {
-            try
-            {
-                Console.WriteLine("Add xml files to JacksonInput folder to use them");
-                Console.WriteLine("Available xml files:");
-                string path = Directory.GetCurrentDirectory();
-                path = path.Remove(path.Length - 9);
-                path = path + "JacksonInput";
-                string[] fileEntries = Directory.GetFiles(path, "*.xml");
-                foreach (var file in fileEntries)
-                {
-                    Console.WriteLine(Path.GetFileName(file));
-                }
-                Console.WriteLine("Which file do you want to use? Type name with extension");
-                var fileToOpen = Console.ReadLine();
-                XmlDataLoader xmlDataLoader = new XmlDataLoader();
-                Input testInput = xmlDataLoader.LoadInputForJackson(path + "\\" + fileToOpen);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            Console.ReadKey();
+            PrintXmlFilesInExecutableDirectory();
+            GetUserChoice();
+            TrySolveProblem();
+            OutputResults();
+        }
+
+        private static void OutputResults()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void TrySolveProblem()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void GetUserChoice()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void PrintXmlFilesInExecutableDirectory()
+        {
+            Console.WriteLine("Found XML files:");
+            throw new NotImplementedException();
         }
     }
 }
