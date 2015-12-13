@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Queue.Algorithm.Data;
-using Queue.ConsoleUI.Data;
+using Queue.ConsoleUI.DataLoading;
 
 namespace Queue.ConsoleUI.Solver
 {

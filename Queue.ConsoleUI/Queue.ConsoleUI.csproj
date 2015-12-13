@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\IFileDataLoader.cs" />
-    <Compile Include="Data\XmlDataLoader.cs" />
+    <Compile Include="DataLoading\IFileDataLoader.cs" />
+    <Compile Include="DataLoading\XmlDataLoader.cs" />
     <Compile Include="DI\Dependency.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="JacksonInput\Jackson.xml" />
+    <Content Include="DataFiles\Jackson.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

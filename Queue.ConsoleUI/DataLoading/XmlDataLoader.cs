@@ -1,13 +1,8 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using Queue.Algorithm.Data;
 
-namespace Queue.ConsoleUI.Data
+namespace Queue.ConsoleUI.DataLoading
 {
     class XmlDataLoader : IFileDataLoader
     {

@@ -1,6 +1,6 @@
 using Queue.Algorithm.Data;
 
-namespace Queue.ConsoleUI.Data
+namespace Queue.ConsoleUI.DataLoading
 {
     internal interface IFileDataLoader
     {
