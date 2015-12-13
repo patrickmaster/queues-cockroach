@@ -39,6 +39,20 @@ namespace Queue.ConsoleUI.Data
             {
                 throw new Exception("Wrong xml file format");
             }
+            var nodeM = JacksonInput.SelectSingleNode("/Jackson/M");
+            if (nodeM != null)
+            {
+                string[] mValues = nodeM.InnerText.Trim().Split(';');
+                input.M = new double[mValues.Length];
+                for (int i = 0; i < mValues.Length; i++)
+                {
+                    input.M[i] = Double.Parse(mValues[i]);
+                }
+            }
+            else
+            {
+                throw new Exception("Wrong xml file format");
+            }
             var nodeP = JacksonInput.SelectSingleNode("/Jackson/P");
             if (nodeP != null)
             {

@@ -13,5 +13,7 @@ namespace Queue.Algorithm.Data
         public double[] Mi { get; set; }
 
         public double[][] P { get; set; }
+
+        public double[] M { get; set; } //usunac jak bedzie karaluch
     }
 }
