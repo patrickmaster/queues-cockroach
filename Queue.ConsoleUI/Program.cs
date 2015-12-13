@@ -4,40 +4,71 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Queue.Algorithm.Data;
-using Queue.ConsoleUI.Data;
+using Autofac;
+using Queue.ConsoleUI.DI;
+using Queue.ConsoleUI.Solver;
 
 namespace Queue.ConsoleUI
 {
     internal class Program
     {
+        private static ILifetimeScope _scope;
+        private static string _filename;
+
         private static void Main(string[] args)
         {
-            PrintXmlFilesInExecutableDirectory();
-            GetUserChoice();
-            TrySolveProblem();
-            OutputResults();
+            var container = Dependency.Register();
+
+            using (_scope = container.BeginLifetimeScope())
+            {
+                LoadAndPrintXmlFilesInExecutableDirectory();
+                GetUserChoice();
+                TrySolveProblem();
+                OutputResults();
+            }
         }
 
         private static void OutputResults()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("done");
+            Console.ReadLine();
         }
 
         private static void TrySolveProblem()
         {
-            throw new NotImplementedException();
+            var solver = _scope.Resolve<ISolver>();
+
+            try
+            {
+                var result = solver.Solve(_filename);
+                PrintResult(result);
+            }
+            catch (Exception e)
+            {
+                PrintError(e);
+            }   
+        }
+
+        private static void PrintResult(SolverResult result)
+        {
+            var output = result.OutputData;
+
+            Console.WriteLine("Channels count: {0}", output.ChannelsCount);
         }
 
         private static void GetUserChoice()
         {
-            throw new NotImplementedException();
         }
 
-        private static void PrintXmlFilesInExecutableDirectory()
+        private static void PrintError(Exception exception)
+        {
+            Console.WriteLine("An error has occured:");
+            Console.WriteLine(exception.Message);
+        }
+
+        private static void LoadAndPrintXmlFilesInExecutableDirectory()
         {
             Console.WriteLine("Found XML files:");
-            throw new NotImplementedException();
         }
     }
 }
