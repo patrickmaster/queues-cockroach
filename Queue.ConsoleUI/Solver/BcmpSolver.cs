@@ -4,12 +4,12 @@ using Queue.ConsoleUI.DataLoading;
 
 namespace Queue.ConsoleUI.Solver
 {
-    internal class BcmpThreeSolver : ISolver
+    internal class BcmpSolver : ISolver
     {
-        private readonly IBcmpThreeSolverFactory _factory;
+        private readonly IBcmpSolverFactory _factory;
         private readonly IBcmpFileDataLoader _dataLoader;
 
-        public BcmpThreeSolver(IBcmpThreeSolverFactory factory, IBcmpFileDataLoader dataLoader)
+        public BcmpSolver(IBcmpSolverFactory factory, IBcmpFileDataLoader dataLoader)
         {
             _factory = factory;
             _dataLoader = dataLoader;

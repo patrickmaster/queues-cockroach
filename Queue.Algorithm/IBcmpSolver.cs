@@ -7,15 +7,16 @@ using Queue.Algorithm.Data;
 
 namespace Queue.Algorithm
 {
-    public interface IBcmpThreeSolver
+    public interface IBcmpSolver
     {
         Output Solve(IBcmpDataProvider dataProvider);
     }
 
-    class BcmpThreeSolver : IBcmpThreeSolver
+    class BcmpOneSolver : IBcmpSolver
     {
         public Output Solve(IBcmpDataProvider dataProvider)
         {
+            dataProvider.GetInput();
             throw new NotImplementedException();
         }
     }

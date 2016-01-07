@@ -3,7 +3,7 @@ using Queue.Common.DI;
 
 namespace Queue.Algorithm
 {
-    internal class SolverFactory : IJacksonSolverFactory, IBcmpOneSolverFactory, IBcmpThreeSolverFactory
+    internal class SolverFactory : IJacksonSolverFactory, IBcmpSolverFactory
     {
         private readonly IResolver _resolver;
 
@@ -17,14 +17,10 @@ namespace Queue.Algorithm
             return _resolver.Create<JacksonSolver>();
         }
 
-        IBcmpOneSolver IBcmpOneSolverFactory.GetSolver()
+        IBcmpSolver IBcmpSolverFactory.GetSolver()
         {
             return _resolver.Create<BcmpOneSolver>();
         }
 
-        IBcmpThreeSolver IBcmpThreeSolverFactory.GetSolver()
-        {
-            return _resolver.Create<BcmpThreeSolver>();
-        }
     }
 }

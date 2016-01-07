@@ -13,12 +13,24 @@ namespace Queue.ConsoleUI.DataLoading
             Input input = new Input();
             var nodeLambda = jacksonInput.SelectSingleNode("/Jackson/Lambda");
             if (nodeLambda != null)
-            {
-                input.Lambda = Double.Parse(nodeLambda.InnerText.Trim());             
+            {   
+                input.Lambda = Double.Parse(nodeLambda.InnerText.Trim());
+                if (input.Lambda == 0)
+                {
+                    var nodeK = jacksonInput.SelectSingleNode("/Jackson/K");
+                    if (nodeK != null)
+                    {
+                        input.K = Int32.Parse(nodeK.InnerText.Trim());
+                    }
+                    else
+                    {
+                        throw new UserInputException("Wrong xml file format");
+                    }
+                }      
             }
             else
             {
-                throw new Exception("Wrong xml file format");
+                throw new UserInputException("Wrong xml file format");
             }
             var nodeMi = jacksonInput.SelectSingleNode("/Jackson/Mi");
             if (nodeMi != null)
@@ -32,21 +44,7 @@ namespace Queue.ConsoleUI.DataLoading
             }
             else
             {
-                throw new Exception("Wrong xml file format");
-            }
-            var nodeM = jacksonInput.SelectSingleNode("/Jackson/M");
-            if (nodeM != null)
-            {
-                string[] mValues = nodeM.InnerText.Trim().Split(';');
-                input.M = new double[mValues.Length];
-                for (int i = 0; i < mValues.Length; i++)
-                {
-                    input.M[i] = Double.Parse(mValues[i]);
-                }
-            }
-            else
-            {
-                throw new Exception("Wrong xml file format");
+                throw new UserInputException("Wrong xml file format");
             }
             var nodeP = jacksonInput.SelectSingleNode("/Jackson/P");
             if (nodeP != null)
@@ -66,7 +64,7 @@ namespace Queue.ConsoleUI.DataLoading
             }
             else
             {
-                throw new Exception("Wrong xml file format");
+                throw new UserInputException("Wrong xml file format");
             }
             return input;
         }

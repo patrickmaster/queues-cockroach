@@ -16,6 +16,7 @@ namespace Queue.Algorithm
     {
         public Output Solve(IJacksonDataProvider dataProvider)
         {
+            dataProvider.GetInput();
             throw new NotImplementedException();
         }
     }

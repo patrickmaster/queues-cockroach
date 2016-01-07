@@ -4,14 +4,15 @@ namespace Queue.Algorithm.Data
 {
     public class BcmpInput
     {
-        public IEnumerable<Input> Classes { get; set; }
+        public double[] Lambda { get; set; }
 
-        public IEnumerable<SystemType> Types { get; set; }
+        public double[][] Mi { get; set; }
+
+        public double[][][] P { get; set; }
+
+        public int K { get; set; }
+
+        public int[] Type { get; set; }
     }
 
-    public enum SystemType
-    {
-        One,
-        TheOther
-    }
 }

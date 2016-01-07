@@ -6,7 +6,6 @@ namespace Queue.ConsoleUI.Solver
     internal enum AlgorithmType
     {
         Jackson,
-        BcmpOne,
-        BcmpThree
+        Bcmp
     }
 }

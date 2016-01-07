@@ -57,13 +57,19 @@ namespace Queue.ConsoleUI
 
         private static void LoadXmlFiles()
         {
-            _xmlFiles = FilesystemHelper.GetXmlFilesInDirectory(FilesystemHelper.DataPath);
+            string filePath = Directory.GetCurrentDirectory();
+            filePath = filePath.Remove(filePath.Length - 9);
+            filePath = filePath + "DataFiles";
+            _xmlFiles = FilesystemHelper.GetXmlFilesInDirectory(filePath);
         }
 
         private static void PrintXmlFiles()
         {
+            string filePath = Directory.GetCurrentDirectory();
+            filePath = filePath.Remove(filePath.Length - 9);
+            filePath = filePath + "DataFiles";
             var fileNames = _xmlFiles
-                .Select(path => path.Replace(FilesystemHelper.DataPath + @"\", string.Empty))
+                .Select(path => path.Replace(filePath + @"\", string.Empty))
                 .ToArray();
 
             Console.WriteLine("Found XML files:");

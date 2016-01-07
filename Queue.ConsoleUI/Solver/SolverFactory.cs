@@ -24,10 +24,8 @@ namespace Queue.ConsoleUI.Solver
             {
                 case AlgorithmType.Jackson:
                     return _resolver.Create<JacksonSolver>();
-                case AlgorithmType.BcmpOne:
-                    return _resolver.Create<BcmpOneSolver>();
-                case AlgorithmType.BcmpThree:
-                    return _resolver.Create<BcmpThreeSolver>();
+                case AlgorithmType.Bcmp:
+                    return _resolver.Create<BcmpSolver>();
                 default:
                     throw new ArgumentOutOfRangeException("problemType", problemType, null);
             }

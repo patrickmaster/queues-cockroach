@@ -14,6 +14,6 @@ namespace Queue.Algorithm.Data
 
         public double[][] P { get; set; }
 
-        public double[] M { get; set; } //usunac jak bedzie karaluch
+        public int K { get; set; }
     }
 }

@@ -47,10 +47,8 @@
     <Compile Include="Data\Output.cs" />
     <Compile Include="DI\DependencyConfig.cs" />
     <Compile Include="IBcmpDataProvider.cs" />
-    <Compile Include="IBcmpOneSolver.cs" />
-    <Compile Include="IBcmpOneSolverFactory.cs" />
-    <Compile Include="IBcmpThreeSolver.cs" />
-    <Compile Include="IBcmpThreeSolverFactory.cs" />
+    <Compile Include="IBcmpSolver.cs" />
+    <Compile Include="IBcmpSolverFactory.cs" />
     <Compile Include="IJacksonDataProvider.cs" />
     <Compile Include="IJacksonSolver.cs" />
     <Compile Include="IJacksonSolverFactory.cs" />
