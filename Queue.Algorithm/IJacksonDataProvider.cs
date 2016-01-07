@@ -4,6 +4,6 @@ namespace Queue.Algorithm
 {
     public interface IJacksonDataProvider
     {
-        Input GetInput();
+        Input GetInput(string filename);
     }
 }

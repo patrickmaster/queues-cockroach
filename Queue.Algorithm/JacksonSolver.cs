@@ -9,7 +9,7 @@ namespace Queue.Algorithm
 {
     public interface IJacksonSolver
     {
-        Output Solve(IJacksonDataProvider dataProvider);
+        Output Solve(Input input);
     }
 
     class JacksonSolver : IJacksonSolver
@@ -21,9 +21,8 @@ namespace Queue.Algorithm
             _parametersSolver = parametersSolver;
         }
 
-        public Output Solve(IJacksonDataProvider dataProvider)
+        public Output Solve(Input input)
         {
-            var data = dataProvider.GetInput();
             var parameters = Enumerable.Empty<SystemStatistics>();
 
             return CreateResult(parameters.ToArray());

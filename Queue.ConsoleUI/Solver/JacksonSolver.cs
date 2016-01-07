@@ -1,25 +1,23 @@
-﻿using System;
-using Queue.Algorithm;
-using Queue.ConsoleUI.DataLoading;
+﻿using Queue.Algorithm;
 
 namespace Queue.ConsoleUI.Solver
 {
     internal class JacksonSolver : ISolver
     {
         private readonly IJacksonSolverFactory _solverFactory;
-        private readonly IJacksonFileDataLoader _dataLoader;
+        private readonly IJacksonDataProvider _dataProvider;
 
-        public JacksonSolver(IJacksonSolverFactory solverFactory, IJacksonFileDataLoader dataLoader)
+        public JacksonSolver(IJacksonSolverFactory solverFactory, IJacksonDataProvider dataProvider)
         {
             _solverFactory = solverFactory;
-            _dataLoader = dataLoader;
+            _dataProvider = dataProvider;
         }
 
         public SolverResult Solve(string filename)
         {
             var solver = _solverFactory.GetSolver();
-            var dataProvider = new JacksonDataProvider(filename, _dataLoader);
-            return new SolverResult { OutputData = solver.Solve(dataProvider) };
+            var input = _dataProvider.GetInput(filename);
+            return new SolverResult { OutputData = solver.Solve(input) };
         }
     }
 }

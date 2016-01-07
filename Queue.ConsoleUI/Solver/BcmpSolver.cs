@@ -1,25 +1,23 @@
-﻿using System;
-using Queue.Algorithm;
-using Queue.ConsoleUI.DataLoading;
+﻿using Queue.Algorithm;
 
 namespace Queue.ConsoleUI.Solver
 {
     internal class BcmpSolver : ISolver
     {
         private readonly IBcmpSolverFactory _factory;
-        private readonly IBcmpFileDataLoader _dataLoader;
+        private readonly IBcmpDataProvider _dataProvider;
 
-        public BcmpSolver(IBcmpSolverFactory factory, IBcmpFileDataLoader dataLoader)
+        public BcmpSolver(IBcmpSolverFactory factory, IBcmpDataProvider dataProvider)
         {
             _factory = factory;
-            _dataLoader = dataLoader;
+            _dataProvider = dataProvider;
         }
 
         public SolverResult Solve(string filename)
         {
             var solver = _factory.GetSolver();
-            var dataProvider = new BcmpDataProvider(filename, _dataLoader);
-            return new SolverResult {OutputData = solver.Solve(dataProvider)};
+            var input = _dataProvider.GetInput(filename);
+            return new SolverResult {OutputData = solver.Solve(input)};
         }
     }
 }

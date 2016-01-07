@@ -4,6 +4,6 @@ namespace Queue.Algorithm
 {
     public interface IBcmpDataProvider
     {
-        BcmpInput GetInput();
+        BcmpInput GetInput(string filename);
     }
 }

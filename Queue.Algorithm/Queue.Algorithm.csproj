@@ -51,7 +51,7 @@
     <Compile Include="IBcmpSolver.cs" />
     <Compile Include="IBcmpSolverFactory.cs" />
     <Compile Include="IJacksonDataProvider.cs" />
-    <Compile Include="IJacksonSolver.cs" />
+    <Compile Include="JacksonSolver.cs" />
     <Compile Include="IJacksonSolverFactory.cs" />
     <Compile Include="ParametersSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
