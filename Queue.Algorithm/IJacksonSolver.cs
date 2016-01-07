@@ -14,10 +14,28 @@ namespace Queue.Algorithm
 
     class JacksonSolver : IJacksonSolver
     {
+        private readonly IParametersSolver _parametersSolver;
+
+        public JacksonSolver(IParametersSolver parametersSolver)
+        {
+            _parametersSolver = parametersSolver;
+        }
+
         public Output Solve(IJacksonDataProvider dataProvider)
         {
-            dataProvider.GetInput();
-            throw new NotImplementedException();
+            var data = dataProvider.GetInput();
+            var parameters = Enumerable.Empty<SystemStatistics>();
+
+            return CreateResult(parameters.ToArray());
+        }
+
+        private Output CreateResult(SystemStatistics[] parameters)
+        {
+            return new Output
+            {
+                Time = parameters.Sum(x => x.ServiceTime),
+                SystemStats = parameters
+            };
         }
     }
 }

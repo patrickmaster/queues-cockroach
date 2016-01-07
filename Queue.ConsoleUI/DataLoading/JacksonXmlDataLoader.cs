@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml;
 using Queue.Algorithm.Data;
 
@@ -66,7 +67,20 @@ namespace Queue.ConsoleUI.DataLoading
             {
                 throw new UserInputException("Wrong xml file format");
             }
+
+            Validate(input);
+
             return input;
+        }
+
+        private void Validate(Input input)
+        {
+            var length = input.Mi.Length;
+            if (length != input.P.Length)
+                throw new UserInputException("Dimensions do not match");
+
+            if (input.P.Any(row => row.Length != length))
+                throw new UserInputException("Dimensions do not match");
         }
     }
 }

@@ -139,8 +139,6 @@ namespace Queue.ConsoleUI
             var output = _result.OutputData;
 
             Console.WriteLine("Time: {0}", output.Time);
-            Console.WriteLine("Channels count: {0}", output.ChannelsCount);
-            Console.WriteLine("Function value: {0}", output.Value);
 
             foreach (var system in output.SystemStats)
                 PrintResultsFor(system);

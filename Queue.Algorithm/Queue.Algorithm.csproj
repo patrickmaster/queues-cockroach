@@ -45,6 +45,7 @@
     <Compile Include="Data\BcmpInput.cs" />
     <Compile Include="Data\Input.cs" />
     <Compile Include="Data\Output.cs" />
+    <Compile Include="Data\SystemStatistics.cs" />
     <Compile Include="DI\DependencyConfig.cs" />
     <Compile Include="IBcmpDataProvider.cs" />
     <Compile Include="IBcmpSolver.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="IJacksonDataProvider.cs" />
     <Compile Include="IJacksonSolver.cs" />
     <Compile Include="IJacksonSolverFactory.cs" />
+    <Compile Include="ParametersSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SolverFactory.cs" />
   </ItemGroup>
