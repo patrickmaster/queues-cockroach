@@ -68,8 +68,6 @@ namespace Queue.ConsoleUI.DataLoading
                 throw new UserInputException("Wrong xml file format");
             }
 
-            Validate(input);
-
             return input;
         }
 
