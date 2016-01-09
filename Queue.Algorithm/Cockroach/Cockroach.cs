@@ -2,28 +2,29 @@
 
 namespace Queue.Algorithm.Cockroach
 {
-    internal class Cockroach<TOutput> : ICockroach<TOutput>
+    internal abstract class Cockroach<TState> : ICockroach<TState>
     {
         private const int CockroachesCount = 100;
 
-        private readonly IValueSolver<TOutput> _valueSolver;
-        private TOutput[] _cockroaches;
+        private TState[] _cockroaches;
 
-        public Cockroach(IValueSolver<TOutput> valueSolver)
+        protected Cockroach()
         {
-            _valueSolver = valueSolver;
-
             InitializeData();
         }
 
-        public TOutput GetNext()
+        public TState GetNext()
         {
             throw new NotImplementedException();
         }
 
+        protected abstract double GetValue(TState state);
+
+        protected abstract TState GetRandom();
+
         private void InitializeData()
         {
-            _cockroaches = new TOutput[CockroachesCount];
+            _cockroaches = new TState[CockroachesCount];
         }
     }
 }

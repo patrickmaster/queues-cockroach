@@ -11,7 +11,6 @@ namespace Queue.Algorithm
     /// </summary>
     class MatrixSolverWithTwoOnes : IMatrixSolver
     {
-        
         public double[] Solve(double[][] p)
         {
             throw new System.NotImplementedException();

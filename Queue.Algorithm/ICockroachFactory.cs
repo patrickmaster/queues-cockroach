@@ -1,5 +1,4 @@
 using Queue.Algorithm.Cockroach;
-using Queue.Algorithm.Data;
 
 namespace Queue.Algorithm
 {
@@ -19,8 +18,7 @@ namespace Queue.Algorithm
 
         public ICockroach<int[]> GetCockroach(double[] mi, double[] lambda)
         {
-            var valueSolver = new ChannelsValueSolver(mi, lambda, _parametersSolver);
-            var cockroach = new QueueCockroach(valueSolver);
+            var cockroach = new QueueCockroach(_parametersSolver, mi, lambda);
             return cockroach;
         }
     }
