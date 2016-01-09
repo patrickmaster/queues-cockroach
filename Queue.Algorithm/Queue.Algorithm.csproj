@@ -57,9 +57,9 @@
     <Compile Include="ICockroach.cs" />
     <Compile Include="ICockroachFactory.cs" />
     <Compile Include="IJacksonDataProvider.cs" />
+    <Compile Include="IMatrixSolver.cs" />
     <Compile Include="JacksonSolver.cs" />
     <Compile Include="IJacksonSolverFactory.cs" />
-    <Compile Include="MatrixEquation.cs" />
     <Compile Include="ParametersSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueCockroach.cs" />

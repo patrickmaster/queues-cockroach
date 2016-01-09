@@ -15,11 +15,14 @@ namespace Queue.Algorithm
 
         private readonly ICockroachFactory _cockroachFactory;
         private readonly IParametersSolver _parametersSolver;
+        private readonly IMatrixSolver _matrixSolver;
 
-        public JacksonSolver(ICockroachFactory cockroachFactory, IParametersSolver parametersSolver)
+
+        public JacksonSolver(ICockroachFactory cockroachFactory, IParametersSolver parametersSolver, IMatrixSolver matrixSolver)
         {
             _cockroachFactory = cockroachFactory;
             _parametersSolver = parametersSolver;
+            _matrixSolver = matrixSolver;
         }
 
         public Output Solve(Input input)
@@ -41,9 +44,9 @@ namespace Queue.Algorithm
             return CreateResult(currentResult.ToArray());
         }
 
-        private static double[] GetLambdas(Input input)
+        private double[] GetLambdas(Input input)
         {
-            var equationResult = MatrixEquation.Solve(input.P);
+            var equationResult = _matrixSolver.Solve(input.P);
             var result = new double[equationResult.Length - 2];
             for (var i = 1; i < equationResult.Length - 1; i++)
                 result[i - 1] = equationResult[i];
