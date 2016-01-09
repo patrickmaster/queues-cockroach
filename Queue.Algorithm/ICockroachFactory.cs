@@ -20,8 +20,7 @@ namespace Queue.Algorithm
         public ICockroach<int[]> GetCockroach(double[] mi, double[] lambda)
         {
             var valueSolver = new ChannelsValueSolver(mi, lambda, _parametersSolver);
-            var randomizer = new ChannelsRandomizer();
-            var cockroach = new QueueCockroach(valueSolver, randomizer);
+            var cockroach = new QueueCockroach(valueSolver);
             return cockroach;
         }
     }

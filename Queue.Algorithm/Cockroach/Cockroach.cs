@@ -7,13 +7,11 @@ namespace Queue.Algorithm.Cockroach
         private const int CockroachesCount = 100;
 
         private readonly IValueSolver<TOutput> _valueSolver;
-        private readonly IRandomizer<TOutput> _randomizer;
         private TOutput[] _cockroaches;
 
-        public Cockroach(IValueSolver<TOutput> valueSolver, IRandomizer<TOutput> randomizer)
+        public Cockroach(IValueSolver<TOutput> valueSolver)
         {
             _valueSolver = valueSolver;
-            _randomizer = randomizer;
 
             InitializeData();
         }

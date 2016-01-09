@@ -1,7 +1,8 @@
 ﻿namespace Queue.Algorithm.Cockroach
 {
-    internal interface IValueSolver<in T>
+    internal interface IValueSolver<T>
     {
         double GetValue(T input);
+        T GetRandomValue();
     }
 }

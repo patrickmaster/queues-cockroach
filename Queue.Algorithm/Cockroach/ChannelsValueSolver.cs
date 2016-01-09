@@ -23,5 +23,10 @@ namespace Queue.Algorithm.Cockroach
             var parameters = _parametersSolver.SolveParameters(m, _mi, _lambda);
             return WinFactor * parameters.Sum(x => x.ServiceTime) - LossFactor * m.Sum();
         }
+
+        public int[] GetRandomValue()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

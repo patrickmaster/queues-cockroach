@@ -43,10 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlgorithmException.cs" />
-    <Compile Include="Cockroach\ChannelsRandomizer.cs" />
     <Compile Include="Cockroach\ChannelsValueSolver.cs" />
     <Compile Include="Cockroach\Cockroach.cs" />
-    <Compile Include="Cockroach\IRandomizer.cs" />
     <Compile Include="Cockroach\IValueSolver.cs" />
     <Compile Include="Data\BcmpInput.cs" />
     <Compile Include="Data\Input.cs" />
