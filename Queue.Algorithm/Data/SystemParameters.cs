@@ -1,6 +1,6 @@
 ﻿namespace Queue.Algorithm.Data
 {
-    public class SystemStatistics
+    public class SystemParameters
     {
         public double ServiceTime { get; set; }
 

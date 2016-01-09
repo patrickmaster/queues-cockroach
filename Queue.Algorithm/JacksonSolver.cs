@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Queue.Algorithm.Data;
 
 namespace Queue.Algorithm
@@ -14,21 +11,46 @@ namespace Queue.Algorithm
 
     class JacksonSolver : IJacksonSolver
     {
+        private const int MaxIterations = 1000;
+
+        private readonly ICockroachFactory _cockroachFactory;
         private readonly IParametersSolver _parametersSolver;
 
-        public JacksonSolver(IParametersSolver parametersSolver)
+        public JacksonSolver(ICockroachFactory cockroachFactory, IParametersSolver parametersSolver)
         {
+            _cockroachFactory = cockroachFactory;
             _parametersSolver = parametersSolver;
         }
 
         public Output Solve(Input input)
         {
-            var parameters = Enumerable.Empty<SystemStatistics>();
+            var lambdas = GetLambdas(input);
+            var cockroach = _cockroachFactory.GetCockroach(input.Mi, lambdas);
+            IEnumerable<SystemParameters> currentResult = null;
 
-            return CreateResult(parameters.ToArray());
+            for (var i = 0; i < MaxIterations; i++)
+            {
+                var m = cockroach.GetNext();
+                currentResult = _parametersSolver.SolveParameters(m, input.Mi, lambdas);
+            }
+
+            if (currentResult == null)
+                throw new AlgorithmException(
+                    "No result from cockroach. Check max iterations count and the cockroach implementation");
+
+            return CreateResult(currentResult.ToArray());
         }
 
-        private Output CreateResult(SystemStatistics[] parameters)
+        private static double[] GetLambdas(Input input)
+        {
+            var equationResult = MatrixEquation.Solve(input.P);
+            var result = new double[equationResult.Length - 2];
+            for (var i = 1; i < equationResult.Length - 1; i++)
+                result[i - 1] = equationResult[i];
+            return result;
+        }
+
+        private Output CreateResult(SystemParameters[] parameters)
         {
             return new Output
             {

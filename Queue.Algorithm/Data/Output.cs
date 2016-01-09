@@ -10,6 +10,6 @@ namespace Queue.Algorithm.Data
     {
         public double Time { get; set; }
         
-        public IEnumerable<SystemStatistics> SystemStats { get; set; }
+        public IEnumerable<SystemParameters> SystemStats { get; set; }
     }
 }

@@ -144,7 +144,7 @@ namespace Queue.ConsoleUI
                 PrintResultsFor(system);
         }
 
-        private static void PrintResultsFor(SystemStatistics system)
+        private static void PrintResultsFor(SystemParameters system)
         {
             Console.WriteLine("\tSystem:");
             Console.WriteLine("\tService time: {0}", system.ServiceTime);
