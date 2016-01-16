@@ -7,11 +7,11 @@ namespace Queue.ConsoleUI.DataLoading
 {
     class JacksonXmlDataLoader : IJacksonFileDataLoader
     {
-        public Input LoadInputForJackson(string filename)
+        public JacksonInput LoadInputForJackson(string filename)
         {
             XmlDocument jacksonInput = new XmlDocument();
             jacksonInput.Load(filename);
-            Input input = new Input();
+            JacksonInput input = new JacksonInput();
             var nodeLambda = jacksonInput.SelectSingleNode("/Jackson/Lambda");
             if (nodeLambda != null)
             {   
@@ -71,7 +71,7 @@ namespace Queue.ConsoleUI.DataLoading
             return input;
         }
 
-        private void Validate(Input input)
+        private void Validate(JacksonInput input)
         {
             var length = input.Mi.Length;
             if (length != input.P.Length)

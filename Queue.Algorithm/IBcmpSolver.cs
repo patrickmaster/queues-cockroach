@@ -8,7 +8,7 @@ namespace Queue.Algorithm
         Output Solve(BcmpInput input);
     }
 
-    class BcmpOneSolver : IBcmpSolver
+    internal class BcmpSolver : IBcmpSolver
     {
         public Output Solve(BcmpInput input)
         {

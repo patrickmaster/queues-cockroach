@@ -6,7 +6,7 @@ namespace Queue.Algorithm
 {
     public interface IJacksonSolver
     {
-        Output Solve(Input input);
+        Output Solve(JacksonInput input);
     }
 
     class JacksonSolver : IJacksonSolver
@@ -25,7 +25,7 @@ namespace Queue.Algorithm
             _matrixSolver = matrixSolver;
         }
 
-        public Output Solve(Input input)
+        public Output Solve(JacksonInput input)
         {
             var lambdas = GetLambdas(input);
             var cockroach = _cockroachFactory.GetCockroach(input.Mi, lambdas);
@@ -44,7 +44,7 @@ namespace Queue.Algorithm
             return CreateResult(currentResult.ToArray());
         }
 
-        private double[] GetLambdas(Input input)
+        private double[] GetLambdas(JacksonInput input)
         {
             var equationResult = _matrixSolver.Solve(input.P);
             var result = new double[equationResult.Length - 2];

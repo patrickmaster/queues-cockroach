@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Queue.Algorithm.Data
+﻿namespace Queue.Algorithm.Data
 {
-    public class Input
+    public class JacksonInput
     {
         public double Lambda { get; set; }
 

@@ -19,7 +19,7 @@ namespace Queue.Algorithm
 
         IBcmpSolver IBcmpSolverFactory.GetSolver()
         {
-            return _resolver.Create<BcmpOneSolver>();
+            return _resolver.Create<BcmpSolver>();
         }
 
     }

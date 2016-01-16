@@ -50,7 +50,7 @@
     <Compile Include="Cockroach\Cockroach.cs" />
     <Compile Include="Cockroach\Randomizer.cs" />
     <Compile Include="Data\BcmpInput.cs" />
-    <Compile Include="Data\Input.cs" />
+    <Compile Include="Data\JacksonInput.cs" />
     <Compile Include="Data\Output.cs" />
     <Compile Include="Data\SystemParameters.cs" />
     <Compile Include="DI\DependencyConfig.cs" />

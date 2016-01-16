@@ -4,6 +4,6 @@ namespace Queue.ConsoleUI.DataLoading
 {
     internal interface IJacksonFileDataLoader
     {
-        Input LoadInputForJackson(string filename);
+        JacksonInput LoadInputForJackson(string filename);
     }
 }

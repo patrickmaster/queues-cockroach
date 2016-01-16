@@ -12,7 +12,7 @@ namespace Queue.ConsoleUI.DataLoading
             _dataLoader = dataLoader;
         }
 
-        public Input GetInput(string filename)
+        public JacksonInput GetInput(string filename)
         {
             return _dataLoader.LoadInputForJackson(filename);
         }
