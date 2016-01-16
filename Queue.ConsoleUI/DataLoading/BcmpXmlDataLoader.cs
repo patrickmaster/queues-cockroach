@@ -20,10 +20,10 @@ namespace Queue.ConsoleUI.DataLoading
             if (nodeType != null)
             {
                 string[] typeValues = nodeType.InnerText.Trim().Split(';');
-                input.Type = new int[typeValues.Length];
+                input.Type = new BcmpType[typeValues.Length];
                 for (int i = 0; i < typeValues.Length; i++)
                 {
-                    input.Type[i] = Int32.Parse(typeValues[i]);
+                    input.Type[i] = (BcmpType) Enum.Parse(typeof (BcmpType), typeValues[i]);
                 }
             }
             else

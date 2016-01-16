@@ -12,7 +12,12 @@ namespace Queue.Algorithm.Data
 
         public int K { get; set; }
 
-        public int[] Type { get; set; }
+        public BcmpType[] Type { get; set; }
     }
 
+    public enum BcmpType
+    {
+        One = 1,
+        Three = 3
+    }
 }
