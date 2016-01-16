@@ -13,35 +13,72 @@ namespace Queue.Algorithm
     /// </summary>
     class MatrixSolverWithTwoOnes : IMatrixSolver
     {
+        public double[] getResult(double[][] matrixToEquation, double[] b, int rows, int columns)
+        {
+            double[][] A = new double[rows - 2][];
+            double[] B = new double[rows - 2];
+
+            for (int i = 0; i < rows - 2; i++)
+            {
+                B[i] = b[i];
+            }
+
+            for (int i = 0; i < rows - 2; i++)
+            {
+                A[i] = new double[columns - 2];
+            }
+
+            for (int i = 0; i < rows - 2; i++)
+            {
+                for (int j = 0; j < columns - 2; j++)
+                {
+                    A[i][j] = matrixToEquation[i][j];
+                }
+            }
+
+            double[,] A2D = To2D(A);
+            Matrix rightSide = new Matrix(B);
+            Matrix m = new Matrix(A2D);
+            Matrix inverseM = m.Inverse();
+            Matrix final = inverseM * rightSide;
+            double[] final_result = getFinalResult(final, rows);
+            return final_result;
+        }
+
         public double[] getFinalResult(Matrix finalResult, int rows)
         {
             double[] solution = new double[rows];
             for (int i = 0; i < rows; i++)
             {
-                if (i > 0 && i < rows - 1)
-                {
-                    solution[i] = finalResult[i, 1].Re;
-                }
-                else
+                if ((0 == i) || (rows - 1) == i)
                 {
                     solution[i] = 1;
                 }
+                else
+                {
+                    solution[i] = finalResult[i, 1].Re;
+                }
 
             }
-
             return solution;
         }
 
-        public static void fillAMatrix(double[][] A, double[][] matrix, int rows, int columns)
+        public static void fillMatrixToEquation(double[][] matrixToEquation, double[][] matrix, int rows, int columns)
         {
-            for (int i = 0; i < rows - 2; i++)
+            for (int i = 0; i < rows; i++)
             {
+                if (0 == i)
+                {
+                    continue;
+                }
+
                 for (int j = 0; j < columns; j++)
                 {
-                    if (j > 0 && j < columns - 1)
+                    if ((0 == j) || (columns - 1) == j)
                     {
-                        A[i][j - 1] = matrix[i][j];
+                        continue;
                     }
+                    matrixToEquation[i - 1][j - 1] = matrix[i][j];
                 }
             }
         }
@@ -62,24 +99,6 @@ namespace Queue.Algorithm
                     }
                 }
             }
-        }
-
-        public static double[] getRightSideOfLinearEquatation(int rows, double[][] p)
-        {
-            double[] rightSide = new double[rows];
-
-            for (int i = 0; i < rows; i++)
-            {
-                if ((rows - 1 == i) || (0 == i))
-                {
-                    rightSide[i] = -p[rows - 1][i] - p[0][i] + 1;
-                }
-                else
-                {
-                    rightSide[i] = -p[rows - 1][i] - p[0][i];
-                }
-            }
-            return rightSide;
         }
 
         public static T[,] To2D<T>(T[][] source)
@@ -118,37 +137,30 @@ namespace Queue.Algorithm
             }
 
             int n = rows - 2;
-            double[] b = getRightSideOfLinearEquatation(rows, p);
+            double[] b = new double[rows - 1];
+            for (int i = 1; i < rows; i++)
+            {
+                b[i - 1] = -p[0][i];
+                if ((rows - 1) == i)
+                {
+                    b[i - 1] = 1 - p[0][i];
+                }
+            }
             double[][] matrix = new double[rows][];
-            double[][] A = new double[n][];
+            double[][] matrixToEquatation = new double[rows - 1][];
             for (int i = 0; i < rows; i++)
             {
                 matrix[i] = new double[columns];
             }
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < rows - 1; i++)
             {
-                A[i] = new double[n];
+                matrixToEquatation[i] = new double[columns - 2];
             }
-
             fillTemporaryMatrix(matrix, p, rows, columns);
-            fillAMatrix(A, matrix, rows, columns);
+            fillMatrixToEquation(matrixToEquatation, matrix, rows, columns);
 
-            double[] tempB = new double[n];
-
-            for (int i = 0; i < n; i++)
-            {
-                tempB[i] = b[i];
-            }
-
-            double[,] A2D = To2D(A);
-            Matrix rightSide = new Matrix(tempB);
-            Matrix m = new Matrix(A2D);
-            Matrix inverseM = m.Inverse();
-            Matrix final = inverseM * rightSide;
-
-            double[] final_result = getFinalResult(final, rows);
-
-            return final_result;
+            double[] result = getResult(matrixToEquatation, b, rows, columns);
+            return result;
         }
     }
 }
