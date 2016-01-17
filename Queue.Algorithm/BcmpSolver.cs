@@ -30,13 +30,20 @@ namespace Queue.Algorithm
             var lambda = GetLambda(input);
             var cockroach = _cockroachFactory.GetCockroach(input, lambda);
 
-            CockroachResult<int[]> m = null;
+            CockroachResult<int[]> bestState = null;
             for (var i = 0; i < MaxIterations; i++)
-                m = cockroach.GetNext();
+                bestState = cockroach.GetNext();
 
-            var currentResult = _parametersSolver.GetParameters(m.State, input.Mi, lambda, input.Type);
+            if (bestState == null)
+                throw new SolverException(
+                    "Got no result from cockroach. Check max iterations count and the cockroach itself");
 
-            return CreateResult(currentResult);
+            var currentResult = _parametersSolver.GetParameters(bestState.State, input.Mi, lambda, input.Type);
+
+            if (currentResult == null)
+                throw new AlgorithmException("No result from parameters solver");
+
+            return CreateResult(currentResult, bestState);
         }
 
         private double[][] GetLambda(BcmpInput input)
@@ -50,13 +57,15 @@ namespace Queue.Algorithm
             return result;
         }
 
-        private Output CreateResult(IEnumerable<SystemParameters> parameters)
+        private Output CreateResult(IEnumerable<SystemParameters> parameters, CockroachResult<int[]> cockroachResult)
         {
             var parametersArray = parameters as SystemParameters[] ?? parameters.ToArray();
             return new Output
             {
                 Time = parametersArray.Sum(x => x.ServiceTime),
-                SystemStats = parametersArray
+                SystemStats = parametersArray,
+                Channels = cockroachResult.State,
+                Value = cockroachResult.Value
             };
         }
     }
