@@ -10,7 +10,7 @@ namespace Queue.Algorithm
         IEnumerable<SystemParameters> SolveParameters(int[] m, double[] mi, double[] lambda);
     }
 
-    internal class JacksonParametersSolver : IJacksonParametersSolver
+    public class JacksonParametersSolver : IJacksonParametersSolver
     {
         public IEnumerable<SystemParameters> SolveParameters(int[] m, double[] mi, double[] lambda)
         {
@@ -54,8 +54,8 @@ namespace Queue.Algorithm
 
         private SystemParameters SolveForMultipleChannels(int m, double mi, double lambda)
         {
-            if (lambda > mi)
-                throw new AlgorithmException(string.Format("lambda {0} is greater than mi {1}", lambda, mi));
+            if (lambda > m * mi)
+                throw new AlgorithmException(string.Format("lambda {0} is greater than m times mi {1} * {2}", lambda, m, mi));
 
             var ro = lambda / mi;
             var sumS0MMinus1 = Enumerable
