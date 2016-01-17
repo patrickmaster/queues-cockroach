@@ -1,8 +1,7 @@
 using System;
-using Queue.Algorithm.Cockroach;
 using Queue.Algorithm.Data;
 
-namespace Queue.Algorithm
+namespace Queue.Algorithm.Cockroach
 {
     internal interface ICockroachFactory
     {

@@ -46,12 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlgorithmException.cs" />
-    <Compile Include="CockroachBestValueKeeperDecorator.cs" />
+    <Compile Include="Cockroach\CockroachBestValueKeeperDecorator.cs" />
     <Compile Include="Cockroach\ArrayOfIntsCockroach.cs" />
-    <Compile Include="Cockroach\BcmpParametersSolverBetter.cs" />
+    <Compile Include="BcmpParametersSolverBetter.cs" />
     <Compile Include="Cockroach\BcmpQueueCockroach.cs" />
     <Compile Include="Cockroach\Cockroach.cs" />
-    <Compile Include="Cockroach\BcmpParametersSolver.cs" />
+    <Compile Include="BcmpParametersSolver.cs" />
     <Compile Include="Cockroach\JacksonQueueCockroach.cs" />
     <Compile Include="Cockroach\Randomizer.cs" />
     <Compile Include="Data\BcmpInput.cs" />
@@ -62,8 +62,8 @@
     <Compile Include="IBcmpDataProvider.cs" />
     <Compile Include="BcmpSolver.cs" />
     <Compile Include="IBcmpSolverFactory.cs" />
-    <Compile Include="ICockroach.cs" />
-    <Compile Include="ICockroachFactory.cs" />
+    <Compile Include="Cockroach\ICockroach.cs" />
+    <Compile Include="Cockroach\ICockroachFactory.cs" />
     <Compile Include="IJacksonDataProvider.cs" />
     <Compile Include="ILambdaSolver.cs" />
     <Compile Include="IMatrixSolver.cs" />

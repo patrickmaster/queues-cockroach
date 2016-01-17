@@ -1,4 +1,4 @@
-namespace Queue.Algorithm
+namespace Queue.Algorithm.Cockroach
 {
     internal interface ICockroach<T>
     {

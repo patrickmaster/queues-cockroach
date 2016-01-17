@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Queue.Algorithm;
 using Queue.Algorithm.Cockroach;
 using Queue.Algorithm.Data;
 

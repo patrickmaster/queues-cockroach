@@ -1,4 +1,4 @@
-namespace Queue.Algorithm
+namespace Queue.Algorithm.Cockroach
 {
     class CockroachBestValueKeeperDecorator<T> : ICockroach<T>
     {

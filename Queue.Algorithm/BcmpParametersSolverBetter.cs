@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Queue.Algorithm.Data;
 
-namespace Queue.Algorithm.Cockroach
+namespace Queue.Algorithm
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class BcmpParametersSolverBetter : IBcmpParametersSolver
