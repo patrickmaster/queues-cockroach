@@ -5,12 +5,12 @@ using Queue.Algorithm.Data;
 
 namespace Queue.Algorithm
 {
-    internal interface IParametersSolver
+    internal interface IJacksonParametersSolver
     {
         IEnumerable<SystemParameters> SolveParameters(int[] m, double[] mi, double[] lambda);
     }
 
-    class ParametersSolver : IParametersSolver
+    internal class JacksonJacksonParametersSolver : IJacksonParametersSolver
     {
         public IEnumerable<SystemParameters> SolveParameters(int[] m, double[] mi, double[] lambda)
         {
@@ -49,8 +49,8 @@ namespace Queue.Algorithm
         private SystemParameters SolveSystem(int m, double mi, double lambda)
         {
             var ro = lambda/mi;
-            var p0 = (m - ro)/Enumerable.Range(0, m).Sum(s => (m - s)*Math.Pow(ro, s)/Factorial(s));
-            var v = Math.Pow(ro, m + 1)*p0/(Factorial(m - 1)*Math.Pow(m - ro, 2));
+            var p0 = (m - ro)/Enumerable.Range(0, m).Sum(s => (m - s)*Math.Pow(ro, s)/s.Factorial());
+            var v = Math.Pow(ro, m + 1)*p0/((m - 1).Factorial()*Math.Pow(m - ro, 2));
             var n = v + ro;
 
             return new SystemParameters
@@ -60,14 +60,6 @@ namespace Queue.Algorithm
                 QueueTime = v/lambda,
                 ServiceTime = n/lambda
             };
-        }
-
-        private double Factorial(int number)
-        {
-            var result = number;
-            for (int i = 0; i < number; i++)
-                result *= i;
-            return result;
         }
     }
 }

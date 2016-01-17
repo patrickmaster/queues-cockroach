@@ -11,6 +11,7 @@ namespace Queue.Algorithm.Testing
         private readonly Random _random = new Random();
 
         public ExampleCockroach(int maxCount)
+            : base(Length, maxCount)
         {
             _maxCount = maxCount;
         }
@@ -22,10 +23,10 @@ namespace Queue.Algorithm.Testing
 
         public static double GetFunctionValue(int[] state)
         {
-            var functionValue = Math.Pow(state[0], 5)/20000 +
-                                Math.Pow(state[1], 4)/3000 +
-                                Math.Pow(state[2], 3)/1000 +
-                                Math.Pow(state[3], 2)/5 +
+            var functionValue = Math.Pow(state[0], 5) / 20000 +
+                                Math.Pow(state[1], 4) / 3000 +
+                                Math.Pow(state[2], 3) / 1000 +
+                                Math.Pow(state[3], 2) / 5 +
                                 state[4] +
                                 4;
 

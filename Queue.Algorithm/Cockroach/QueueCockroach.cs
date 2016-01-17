@@ -1,45 +1,26 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
+using Queue.Algorithm.Data;
 
 namespace Queue.Algorithm.Cockroach
 {
-    internal class QueueCockroach : ArrayOfIntsCockroach
+    internal abstract class QueueCockroach : ArrayOfIntsCockroach
     {
         private const double WinFactor = 1;
         private const double LossFactor = 1;
         private const int MaxChannelsCount = 5;
 
-        private readonly IParametersSolver _parametersSolver;
-        private readonly double[] _mi;
-        private readonly double[] _lambda;
-        private readonly int _length;
-
-        public QueueCockroach(IParametersSolver parametersSolver, double[] mi, double[] lambda)
+        protected QueueCockroach(int length)
+            : base(length, MaxChannelsCount)
         {
-            _parametersSolver = parametersSolver;
-
-            if (mi.Length != lambda.Length)
-                throw new ArgumentException("mi and lambda dimensions do not match");
-
-            _mi = mi;
-            _lambda = lambda;
-            _length = mi.Length;
         }
 
-        protected override double GetValue(int[] state)
+        protected sealed override double GetValue(int[] state)
         {
-            var parameters = _parametersSolver.SolveParameters(state, _mi, _lambda);
+            var parameters = GetParameters(state);
             return WinFactor * parameters.Sum(x => x.ServiceTime) - LossFactor * state.Sum();
         }
 
-        protected override int[] GetRandomState()
-        {
-            var randomValue = new int[_length];
-
-            for (int i = 0; i < _length; i++)
-                randomValue[i] = Randomizer.GetRandom(0, MaxChannelsCount);
-
-            return randomValue;
-        }
+        protected abstract IEnumerable<SystemParameters> GetParameters(int[] state);
     }
 }

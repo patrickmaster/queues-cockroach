@@ -14,43 +14,33 @@ namespace Queue.Algorithm
         private const int MaxIterations = 1000;
 
         private readonly ICockroachFactory _cockroachFactory;
-        private readonly IParametersSolver _parametersSolver;
-        private readonly IMatrixSolver _matrixSolver;
+        private readonly IJacksonParametersSolver _jacksonParametersSolver;
+        private readonly ILambdaSolver _lambdaSolver;
 
-
-        public JacksonSolver(ICockroachFactory cockroachFactory, IParametersSolver parametersSolver, IMatrixSolver matrixSolver)
+        public JacksonSolver(ICockroachFactory cockroachFactory, IJacksonParametersSolver jacksonParametersSolver,
+            ILambdaSolver lambdaSolver)
         {
             _cockroachFactory = cockroachFactory;
-            _parametersSolver = parametersSolver;
-            _matrixSolver = matrixSolver;
+            _jacksonParametersSolver = jacksonParametersSolver;
+            _lambdaSolver = lambdaSolver;
         }
 
         public Output Solve(JacksonInput input)
         {
-            var lambdas = GetLambdas(input);
+            var lambdas = _lambdaSolver.Solve(input.P);
             var cockroach = _cockroachFactory.GetCockroach(input.Mi, lambdas);
-            IEnumerable<SystemParameters> currentResult = null;
 
+            int[] m = null;
             for (var i = 0; i < MaxIterations; i++)
-            {
-                var m = cockroach.GetNext();
-                currentResult = _parametersSolver.SolveParameters(m, input.Mi, lambdas);
-            }
+                m = cockroach.GetNext();
+
+            var currentResult = _jacksonParametersSolver.SolveParameters(m, input.Mi, lambdas);
 
             if (currentResult == null)
                 throw new AlgorithmException(
                     "No result from cockroach. Check max iterations count and the cockroach implementation");
 
             return CreateResult(currentResult.ToArray());
-        }
-
-        private double[] GetLambdas(JacksonInput input)
-        {
-            var equationResult = _matrixSolver.Solve(input.P);
-            var result = new double[equationResult.Length - 2];
-            for (var i = 1; i < equationResult.Length - 1; i++)
-                result[i - 1] = equationResult[i];
-            return result;
         }
 
         private Output CreateResult(SystemParameters[] parameters)

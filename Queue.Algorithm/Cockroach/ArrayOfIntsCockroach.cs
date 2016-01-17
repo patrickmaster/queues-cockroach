@@ -5,6 +5,15 @@ namespace Queue.Algorithm.Cockroach
 {
     public abstract class ArrayOfIntsCockroach : Cockroach<int[]>
     {
+        private readonly int _length;
+        private readonly int _maxCount;
+
+        protected ArrayOfIntsCockroach(int length, int maxCount)
+        {
+            _length = length;
+            _maxCount = maxCount;
+        }
+
         protected sealed override void Follow(int[] cockroach, int[] leader)
         {
             if (cockroach.Length != leader.Length)
@@ -19,6 +28,16 @@ namespace Queue.Algorithm.Cockroach
             do index = GetRandom(length); while (cockroach[index] == leader[index]);
 
             cockroach[index] += Math.Sign(leader[index] - cockroach[index]);
+        }
+
+        protected override int[] GetRandomState()
+        {
+            var randomValue = new int[_length];
+
+            for (int i = 0; i < _length; i++)
+                randomValue[i] = Randomizer.GetRandom(0, _maxCount);
+
+            return randomValue;
         }
 
         private int GetRandom(int max)
