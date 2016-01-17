@@ -10,7 +10,7 @@ namespace Queue.Algorithm.Cockroach
         IEnumerable<SystemParameters> GetParameters(int[] m, double[][] mi, double[][] lambda, BcmpType[] type);
     }
 
-    internal class BcmpParametersSolver : IBcmpParametersSolver
+    public class BcmpParametersSolver //: IBcmpParametersSolver
     {
         public IEnumerable<SystemParameters> GetParameters(int[] m, double[][] mi, double[][] lambda, BcmpType[] type)
         {
@@ -20,7 +20,7 @@ namespace Queue.Algorithm.Cockroach
             if (type == null) throw new ArgumentNullException("type");
 
             var length = mi.Length;
-            if (length != lambda.Length || length != type.Length)
+            if (length != lambda.Length)
                 throw new ArgumentException("Dimensions do not match");
 
             var k = new double[length][];

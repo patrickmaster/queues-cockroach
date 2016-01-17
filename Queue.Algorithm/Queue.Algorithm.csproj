@@ -48,6 +48,7 @@
     <Compile Include="AlgorithmException.cs" />
     <Compile Include="CockroachBestValueKeeperDecorator.cs" />
     <Compile Include="Cockroach\ArrayOfIntsCockroach.cs" />
+    <Compile Include="Cockroach\BcmpParametersSolverBetter.cs" />
     <Compile Include="Cockroach\BcmpQueueCockroach.cs" />
     <Compile Include="Cockroach\Cockroach.cs" />
     <Compile Include="Cockroach\BcmpParametersSolver.cs" />
