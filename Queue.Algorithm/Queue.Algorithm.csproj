@@ -67,7 +67,7 @@
     <Compile Include="IMatrixSolver.cs" />
     <Compile Include="JacksonSolver.cs" />
     <Compile Include="IJacksonSolverFactory.cs" />
-    <Compile Include="JacksonJacksonParametersSolver.cs" />
+    <Compile Include="JacksonParametersSolver.cs" />
     <Compile Include="MathExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cockroach\QueueCockroach.cs" />

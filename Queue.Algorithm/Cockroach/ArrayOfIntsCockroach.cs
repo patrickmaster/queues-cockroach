@@ -35,7 +35,7 @@ namespace Queue.Algorithm.Cockroach
             var randomValue = new int[_length];
 
             for (int i = 0; i < _length; i++)
-                randomValue[i] = Randomizer.GetRandom(0, _maxCount);
+                randomValue[i] = Randomizer.GetRandom(1, _maxCount);
 
             return randomValue;
         }
