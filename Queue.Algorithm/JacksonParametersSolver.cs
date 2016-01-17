@@ -12,8 +12,6 @@ namespace Queue.Algorithm
 
     internal class JacksonParametersSolver : IJacksonParametersSolver
     {
-        private const int PenaltyServiceTime = 10000;
-
         public IEnumerable<SystemParameters> SolveParameters(int[] m, double[] mi, double[] lambda)
         {
             if (m.Length != mi.Length || m.Length != lambda.Length)
@@ -41,7 +39,7 @@ namespace Queue.Algorithm
         private SystemParameters SolveForSingleChannel(double mi, double lambda)
         {
             if (lambda > mi)
-                return new SystemParameters { ServiceTime = PenaltyServiceTime };
+                throw new AlgorithmException(string.Format("lambda {0} is greater than mi {1}", lambda, mi));
 
             var ro = lambda / mi;
 
@@ -57,7 +55,7 @@ namespace Queue.Algorithm
         private SystemParameters SolveForMultipleChannels(int m, double mi, double lambda)
         {
             if (lambda > mi)
-                return new SystemParameters { ServiceTime = PenaltyServiceTime };
+                throw new AlgorithmException(string.Format("lambda {0} is greater than mi {1}", lambda, mi));
 
             var ro = lambda / mi;
             var sumS0MMinus1 = Enumerable
