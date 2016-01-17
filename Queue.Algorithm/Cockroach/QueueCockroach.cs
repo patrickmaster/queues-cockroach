@@ -6,9 +6,9 @@ namespace Queue.Algorithm.Cockroach
 {
     internal abstract class QueueCockroach : ArrayOfIntsCockroach
     {
-        private const double WinFactor = 1;
+        private const double WinFactor = 80010;
         private const double LossFactor = 1;
-        private const int MaxChannelsCount = 5;
+        private const int MaxChannelsCount = 10;
 
         protected QueueCockroach(int length)
             : base(length, MaxChannelsCount)
@@ -18,7 +18,7 @@ namespace Queue.Algorithm.Cockroach
         protected sealed override double GetValue(int[] state)
         {
             var parameters = GetParameters(state);
-            return WinFactor * parameters.Sum(x => x.ServiceTime) - LossFactor * state.Sum();
+            return -(WinFactor*parameters.Sum(x => x.ServiceTime) + LossFactor*state.Sum());
         }
 
         protected abstract IEnumerable<SystemParameters> GetParameters(int[] state);

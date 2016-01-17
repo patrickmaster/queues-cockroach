@@ -14,7 +14,7 @@ namespace Queue.Algorithm.Cockroach
         private StateValue _leader;
         private bool _initialized;
 
-        public TState GetNext()
+        public CockroachResult<TState> GetNext()
         {
             if (!_initialized)
                 Initialize();
@@ -26,7 +26,7 @@ namespace Queue.Algorithm.Cockroach
                 BeRuthless();
             SetLeader();
 
-            return _leader.State;
+            return new CockroachResult<TState>(_leader.State, _leader.Value);
         }
 
         protected abstract void Follow(TState cockroach, TState leader);

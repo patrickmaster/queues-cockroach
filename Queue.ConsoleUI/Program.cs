@@ -139,9 +139,17 @@ namespace Queue.ConsoleUI
             var output = _result.OutputData;
 
             Console.WriteLine("Time: {0}", output.Time);
+            Console.WriteLine("Value: {0}", output.Value);
+            PrintChannels(output.Channels);
 
             foreach (var system in output.SystemStats)
                 PrintResultsFor(system);
+        }
+
+        private static void PrintChannels(int[] channels)
+        {
+            for (int i = 0; i < channels.Length; i++)
+                Console.WriteLine("System {0}: {1} channels", i + 1, channels[i]);
         }
 
         private static void PrintResultsFor(SystemParameters system)

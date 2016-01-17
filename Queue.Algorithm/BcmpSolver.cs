@@ -30,11 +30,11 @@ namespace Queue.Algorithm
             var lambda = GetLambda(input);
             var cockroach = _cockroachFactory.GetCockroach(input, lambda);
 
-            int[] m = null;
+            CockroachResult<int[]> m = null;
             for (var i = 0; i < MaxIterations; i++)
                 m = cockroach.GetNext();
 
-            var currentResult = _parametersSolver.GetParameters(m, input.Mi, lambda, input.Type);
+            var currentResult = _parametersSolver.GetParameters(m.State, input.Mi, lambda, input.Type);
 
             return CreateResult(currentResult);
         }

@@ -27,7 +27,8 @@ namespace Queue.Algorithm
             if (lambda == null) throw new ArgumentNullException("lambda");
 
             var cockroach = new JacksonQueueCockroach(_jacksonParametersSolver, mi, lambda);
-            return cockroach;
+            var decoratedCockroach = new CockroachBestValueKeeperDecorator<int[]>(cockroach);
+            return decoratedCockroach;
         }
 
         public ICockroach<int[]> GetCockroach(BcmpInput input, double[][] lambda)
@@ -36,7 +37,8 @@ namespace Queue.Algorithm
             if (lambda == null) throw new ArgumentNullException("lambda");
 
             var cockroach = new BcmpQueueCockroach(_bcmpParametersSolver, input.Mi, lambda, input.Type);
-            return cockroach;
+            var decoratedCockroach = new CockroachBestValueKeeperDecorator<int[]>(cockroach);
+            return decoratedCockroach;
         }
     }
 }

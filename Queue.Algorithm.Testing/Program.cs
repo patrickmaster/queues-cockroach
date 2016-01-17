@@ -15,7 +15,7 @@ namespace Queue.Algorithm.Testing
             for (int i = 0; i < Max; i++)
             {
                 var best = cockroach.GetNext();
-                PrintState(best);
+                PrintState(best.State);
             }
 
             Console.ReadLine();

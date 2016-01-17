@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlgorithmException.cs" />
+    <Compile Include="CockroachBestValueKeeperDecorator.cs" />
     <Compile Include="Cockroach\ArrayOfIntsCockroach.cs" />
     <Compile Include="Cockroach\BcmpQueueCockroach.cs" />
     <Compile Include="Cockroach\Cockroach.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="MathExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cockroach\QueueCockroach.cs" />
+    <Compile Include="SolverException.cs" />
     <Compile Include="SolverFactory.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Queue.Algorithm.Data;
 
@@ -17,6 +18,8 @@ namespace Queue.Algorithm
         private readonly IJacksonParametersSolver _jacksonParametersSolver;
         private readonly ILambdaSolver _lambdaSolver;
 
+        private CockroachResult<int[]> _bestState;
+
         public JacksonSolver(ICockroachFactory cockroachFactory, IJacksonParametersSolver jacksonParametersSolver,
             ILambdaSolver lambdaSolver)
         {
@@ -30,26 +33,44 @@ namespace Queue.Algorithm
             var lambdas = _lambdaSolver.Solve(input.P);
             var cockroach = _cockroachFactory.GetCockroach(input.Mi, lambdas);
 
-            int[] m = null;
+            CockroachResult<int[]> bestState = null;
             for (var i = 0; i < MaxIterations; i++)
-                m = cockroach.GetNext();
+            {
+                bestState = cockroach.GetNext();
+                var result = _jacksonParametersSolver.SolveParameters(bestState.State, input.Mi, lambdas);
+                LogResult(bestState,result);
+            }
 
-            var currentResult = _jacksonParametersSolver.SolveParameters(m, input.Mi, lambdas);
+            if (bestState == null)
+                throw new SolverException(
+                    "Got no result from cockroach. Check max iterations count and the cockroach itself");
+
+            var currentResult = _jacksonParametersSolver.SolveParameters(bestState.State, input.Mi, lambdas);
 
             if (currentResult == null)
-                throw new AlgorithmException(
-                    "No result from cockroach. Check max iterations count and the cockroach implementation");
+                throw new AlgorithmException("No result from parameters solver");
 
-            return CreateResult(currentResult.ToArray());
+            return CreateResult(currentResult.ToArray(), bestState);
         }
 
-        private Output CreateResult(SystemParameters[] parameters)
+        private Output CreateResult(SystemParameters[] parameters, CockroachResult<int[]> bestState)
         {
             return new Output
             {
                 Time = parameters.Sum(x => x.ServiceTime),
-                SystemStats = parameters
+                SystemStats = parameters,
+                Channels = bestState.State,
+                Value = bestState.Value
             };
+        }
+
+        private void LogResult(CockroachResult<int[]> bestState, IEnumerable<SystemParameters> result)
+        {
+            if (_bestState != bestState)
+            {
+                _bestState = bestState;
+                Console.WriteLine("Value: {0}, Total time: {1}", bestState.Value, result.Sum(x => x.ServiceTime));
+            }
         }
     }
 }

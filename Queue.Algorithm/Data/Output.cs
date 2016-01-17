@@ -11,5 +11,9 @@ namespace Queue.Algorithm.Data
         public double Time { get; set; }
         
         public IEnumerable<SystemParameters> SystemStats { get; set; }
+        
+        public int[] Channels { get; set; }
+        
+        public double Value { get; set; }
     }
 }
