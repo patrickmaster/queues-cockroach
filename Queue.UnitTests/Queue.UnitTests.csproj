@@ -54,11 +54,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="IMatrixSolver.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="MatrixSolverWithTwoOnesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <ProjectReference Include="..\Queue.Algorithm\Queue.Algorithm.csproj">
+      <Project>{e48ead95-093d-44e9-b62e-3a29621547c8}</Project>
+      <Name>Queue.Algorithm</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

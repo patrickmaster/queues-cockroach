@@ -5,7 +5,7 @@ using Queue.Algorithm;
 namespace Queue.UnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class MatrixSolverWithTwoOnesTests
     {
         [TestMethod]
         public void TestSolveMethodFirstExample()
