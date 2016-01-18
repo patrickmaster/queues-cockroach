@@ -87,16 +87,17 @@ namespace Queue.Algorithm
         {
             var ro_ir = lambda / (m * mi);
             var mRo = m * _ro_i;
-            var mRoPowerToMi = Math.Pow(mRo, mi);
+            var mRoPowerToM = Math.Pow(mRo, m);
             var inverseOneMinusRoi = 1 / (1 - _ro_i);
             var mFactorial = m.Factorial();
-            var thirdElementDenominator = Enumerable.Range(0, m)
+            var thirdElementDenominatorSum = Enumerable.Range(0, m)
                 .Sum(ki => Math.Pow(mRo, ki) / ki.Factorial());
+            var thirdElementDenominator = thirdElementDenominatorSum + mRoPowerToM*inverseOneMinusRoi/mFactorial;
 
             var result =
                 m * ro_ir +
                 ro_ir * inverseOneMinusRoi *
-                mRoPowerToMi * inverseOneMinusRoi / mFactorial /
+                mRoPowerToM * inverseOneMinusRoi / mFactorial /
                 thirdElementDenominator;
 
             return result;
