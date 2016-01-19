@@ -37,5 +37,16 @@ namespace Queue.UnitTests
             result[3].ServiceTime.Should().BeApproximately(4.2, Precision);
             result[4].ServiceTime.Should().BeApproximately(3.5, Precision);
         }
+
+        [TestMethod]
+        public void Test()
+        {
+            var lambda = new[] { 0.2, 0.9 };
+            var m = new[] { 1, 1 };
+            var mi = new double[] { 1, 2 };
+
+            var result = _solver.SolveParameters(m, mi, lambda).ToArray();
+        }
+
     }
 }

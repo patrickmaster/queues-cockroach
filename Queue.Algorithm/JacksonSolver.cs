@@ -34,6 +34,8 @@ namespace Queue.Algorithm
             var lambdas = _lambdaSolver.Solve(input.P);
             var cockroach = _cockroachFactory.GetCockroach(input.Mi, lambdas);
 
+            PrintLambdas(lambdas);
+
             CockroachResult<int[]> bestState = null;
             for (var i = 0; i < MaxIterations; i++)
             {
@@ -52,6 +54,14 @@ namespace Queue.Algorithm
                 throw new AlgorithmException("No result from parameters solver");
 
             return CreateResult(currentResult.ToArray(), bestState);
+        }
+
+        private void PrintLambdas(double[] lambdas)
+        {
+            for (int i = 0; i < lambdas.Length; i++)
+            {
+                Console.WriteLine("Lambda {0}: {1}", i + 1, lambdas[i]);
+            }
         }
 
         private Output CreateResult(SystemParameters[] parameters, CockroachResult<int[]> bestState)
