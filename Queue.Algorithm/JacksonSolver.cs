@@ -32,7 +32,7 @@ namespace Queue.Algorithm
         public Output Solve(JacksonInput input)
         {
             double[] lambdas; //lambdas is e in closed networks
-            /*if (input.Lambda != 0) //open network
+            if (input.Lambda != 0) //open network
             {
                 lambdas = _lambdaSolver.Solve(input.P);
                 PrintLambdas(lambdas);
@@ -41,9 +41,7 @@ namespace Queue.Algorithm
             {
                 lambdas = _lambdaSolver.SolveClosed(input.P);
                 PrintLambdas(lambdas);
-            }*/
-            lambdas = _lambdaSolver.Solve(input.P);
-            PrintLambdas(lambdas);
+            }
             ICockroach<int[]> cockroach = _cockroachFactory.GetCockroach(input.Mi, lambdas); //lambdas is e in closed networks
 
             CockroachResult<int[]> bestState = null;

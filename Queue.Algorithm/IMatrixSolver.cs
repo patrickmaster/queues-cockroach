@@ -12,7 +12,7 @@ namespace Queue.Algorithm
     /// This solver assumes that in the x*P = 0 equation the first and the
     /// last of x vector equal to 1
     /// </summary>
-    class MatrixSolverWithTwoOnes : IMatrixSolver
+    class MatrixSolver : IMatrixSolver
     {
         public double[] getResult(double[][] matrixToEquation, double[] b, int rows, int columns)
         {
