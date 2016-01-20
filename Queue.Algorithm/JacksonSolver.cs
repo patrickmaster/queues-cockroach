@@ -31,24 +31,50 @@ namespace Queue.Algorithm
 
         public Output Solve(JacksonInput input)
         {
-            var lambdas = _lambdaSolver.Solve(input.P);
-            var cockroach = _cockroachFactory.GetCockroach(input.Mi, lambdas);
-
+            double[] lambdas; //lambdas is e in closed networks
+            /*if (input.Lambda != 0) //open network
+            {
+                lambdas = _lambdaSolver.Solve(input.P);
+                PrintLambdas(lambdas);
+            }
+            else
+            {
+                lambdas = _lambdaSolver.Solve(input.P);
+                PrintLambdas(lambdas);
+            }*/
+            lambdas = _lambdaSolver.Solve(input.P);
             PrintLambdas(lambdas);
+            ICockroach<int[]> cockroach = _cockroachFactory.GetCockroach(input.Mi, lambdas); //lambdas is e in closed networks
 
             CockroachResult<int[]> bestState = null;
             for (var i = 0; i < MaxIterations; i++)
             {
+                IEnumerable<SystemParameters> result;
                 bestState = cockroach.GetNext();
-                var result = _jacksonParametersSolver.SolveParameters(bestState.State, input.Mi, lambdas);
-                LogResult(bestState,result);
+                if (input.Lambda != 0) //open network
+                {
+                    result = _jacksonParametersSolver.SolveParameters(bestState.State, input.Mi, lambdas);
+                }
+                else //closed network
+                {
+                    result = _jacksonParametersSolver.SolveParametersClosed(bestState.State, input.Mi, lambdas, input.K);
+                }
+                LogResult(bestState, result);
             }
 
             if (bestState == null)
                 throw new SolverException(
                     "Got no result from cockroach. Check max iterations count and the cockroach itself");
 
-            var currentResult = _jacksonParametersSolver.SolveParameters(bestState.State, input.Mi, lambdas);
+            IEnumerable<SystemParameters> currentResult;
+            if (input.Lambda != 0) //open network
+            {
+                currentResult = _jacksonParametersSolver.SolveParameters(bestState.State, input.Mi, lambdas);
+            }
+            else //closed network
+            {
+                currentResult = _jacksonParametersSolver.SolveParametersClosed(bestState.State, input.Mi, lambdas, input.K);
+            }
 
             if (currentResult == null)
                 throw new AlgorithmException("No result from parameters solver");

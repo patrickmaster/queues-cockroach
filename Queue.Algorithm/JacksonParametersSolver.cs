@@ -8,6 +8,7 @@ namespace Queue.Algorithm
     internal interface IJacksonParametersSolver
     {
         IEnumerable<SystemParameters> SolveParameters(int[] m, double[] mi, double[] lambda);
+        IEnumerable<SystemParameters> SolveParametersClosed(int[] state, double[] mi, double[] lambdas, int K);
     }
 
     public class JacksonParametersSolver : IJacksonParametersSolver
@@ -24,6 +25,11 @@ namespace Queue.Algorithm
                 result[i] = SolveSystem(m[i], mi[i], lambda[i]);
 
             return result;
+        }
+
+        public IEnumerable<SystemParameters> SolveParametersClosed(int[] state, double[] mi, double[] lambdas, int K)
+        {
+            throw new NotImplementedException();
         }
 
         private SystemParameters SolveSystem(int m, double mi, double lambda)

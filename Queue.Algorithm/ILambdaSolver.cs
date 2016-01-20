@@ -5,6 +5,7 @@ namespace Queue.Algorithm
     internal interface ILambdaSolver
     {
         double[] Solve(double[][] p);
+        double[] SolveClosed(double[][] e);
     }
     
     class LambdaSolver : ILambdaSolver
@@ -19,6 +20,12 @@ namespace Queue.Algorithm
         public double[] Solve(double[][] p)
         {
             var result = _matrixSolver.Solve(p);
+            return GetLambdas(result);
+        }
+
+        public double[] SolveClosed(double[][] e)
+        {
+            var result = _matrixSolver.SolveClosed(e);
             return GetLambdas(result);
         }
 

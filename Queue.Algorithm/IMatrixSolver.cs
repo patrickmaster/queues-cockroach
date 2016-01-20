@@ -5,6 +5,7 @@ namespace Queue.Algorithm
     internal interface IMatrixSolver
     {
         double[] Solve(double[][] p);
+        double[] SolveClosed(double[][] e);
     }
 
     /// <summary>
@@ -161,6 +162,11 @@ namespace Queue.Algorithm
 
             double[] result = getResult(matrixToEquatation, b, rows, columns);
             return result;
+        }
+
+        public double[] SolveClosed(double[][] e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
