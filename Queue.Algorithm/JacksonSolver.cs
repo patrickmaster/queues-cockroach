@@ -39,7 +39,7 @@ namespace Queue.Algorithm
             }
             else
             {
-                lambdas = _lambdaSolver.Solve(input.P);
+                lambdas = _lambdaSolver.SolveClosed(input.P);
                 PrintLambdas(lambdas);
             }*/
             lambdas = _lambdaSolver.Solve(input.P);
