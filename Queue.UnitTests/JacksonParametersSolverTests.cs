@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,38 @@ namespace Queue.UnitTests
             var mi = new double[] { 1, 2 };
 
             var result = _solver.SolveParameters(m, mi, lambda).ToArray();
+        }
+
+        [TestMethod]
+        public void TestClosed()
+        {
+            var e = new[] { 1, 2, 7.5, 7.25 };
+            var m = new[] { 1, 1, 1, 1 };
+            var mi = new double[] { 1, 2, 1, 1 };
+            var K = 10;
+            bool CorrectEntieres = true;
+            bool CorrectTimes = true;
+
+            var result = _solver.SolveParametersClosed(m, mi, e, K).ToArray();
+            for (int i = 0; i < result.Length; i++)
+            {
+                if (result[i].AverageEntriesCount < result[i].AverageQueueLength)
+                {
+                    CorrectEntieres = false;
+                    Debug.WriteLine("System number: " + i.ToString());
+                    Debug.WriteLine("CorrectEntieres: " + result[i].AverageEntriesCount.ToString());
+                    Debug.WriteLine("AverageQueueLength: " + result[i].AverageQueueLength.ToString());
+                }
+                if (result[i].ServiceTime < result[i].QueueTime)
+                {
+                    CorrectTimes = false;
+                    Debug.WriteLine("System number: " + i.ToString());
+                    Debug.WriteLine("ServiceTime: " + result[i].ServiceTime.ToString());
+                    Debug.WriteLine("QueueTime: " + result[i].QueueTime.ToString());
+                }
+            }
+            CorrectEntieres.ShouldBeEquivalentTo(true);
+            CorrectTimes.ShouldBeEquivalentTo(true);
         }
 
     }
