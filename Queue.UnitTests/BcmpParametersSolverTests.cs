@@ -27,7 +27,7 @@ namespace Queue.UnitTests
         [TestMethod]
         public void GetParametersTest()
         {
-            var m = new[] { 1, 1, 1, 1, 1 };
+            var m = new[] {1, 1, 1, 1, 1};
             var mi = new[]
             {
                 new[] {0.5, 0.5, 0.25, 0.5, 0.5},
@@ -38,7 +38,7 @@ namespace Queue.UnitTests
                 new[] {0.25833, 0.041667, 0.041667, 0.041667, 0.06875},
                 new[] {0.025, 0.00833, 0.00833, 0, 0.04999}
             };
-            var type = new[] { BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.Three, BcmpType.One };
+            var type = new[] {BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.Three, BcmpType.One};
 
             var result = _solver.GetParameters(m, mi, lambda, type);
         }
@@ -46,24 +46,37 @@ namespace Queue.UnitTests
         [TestMethod]
         public void GetLambdasTest()
         {
-            double[][] e = new double[][]
+            double[][] e = new[]
             {
-                  new double[] {1, 1, 0,1,0,0,1,1},
-                  new double[] {1, 1, 1, 0, 1,1, 0,1},
-                  new double[] {1, 1, 0, 1, 0, 0, 5, 1}
+                new double[] {1, 1, 1},
+                new double[] {1, 1, 1},
+                new double[] {0, 1, 0},
+                new double[] {1, 0, 1},
+                new double[] {0, 1, 0},
+                new double[] {0, 1, 0},
+                new double[] {1, 0, 5},
+                new double[] {1, 1, 1}
             };
-            double[][] mi = new double[][]
+            double[][] mi = new[]
             {
-                new double[] {67, 8, 60, 8.33, 12, 0.218, 1, 0.092},
-                new double[] { 67, 8, 60, 8.33, 12, 0.218, 1, 0.053},
-                new double[] { 67, 8, 60, 8.33, 12, 0.218, 1, 0.137}
+                new double[] {67, 67, 67},
+                new double[] {8, 8, 8},
+                new double[] {60, 60, 60},
+                new double[] {8.33, 8.33, 8.33},
+                new double[] {12, 12, 12},
+                new double[] {0.218, 0.218, 0.218},
+                new double[] {1, 1, 1},
+                new double[] {0.092, 0.053, 0.137}
             };
-            int[] K = new int[3] { 250, 20, 144 };
-            BcmpType[] type = new BcmpType[] { BcmpType.One, BcmpType.Three, BcmpType.One,BcmpType.One,
-                BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.Three };
-            int[] m = new int[] { 1, 0, 1, 4, 2, 66, 30, 0 };
+            int[] K = new int[3] {250, 20, 144};
+            BcmpType[] type = new BcmpType[]
+            {
+                BcmpType.One, BcmpType.Three, BcmpType.One, BcmpType.One,
+                BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.Three
+            };
+            int[] m = new int[] {1, 0, 1, 4, 2, 5, 5, 0};
             var lambdas = _solver.FindLambdas(m, mi, e, type, K);
-            System.Console.WriteLine("lambdas: "+ lambdas.ToString());
+            System.Console.WriteLine("lambdas: " + lambdas.ToString());
         }
 
         [TestMethod]
@@ -71,21 +84,21 @@ namespace Queue.UnitTests
         {
             double[][] mi = new[]
             {
-                new double[] { 67, 67, 67 },
-                new double[] { 8, 8, 8 },
-                new double[] { 60, 60, 60 },
-                new double[] { 8.33, 8.33, 8.33 },
-                new double[] { 12, 12, 12 },
-                new double[] { 0.218, 0.218, 0.218 },
-                new double[] { 1, 1, 1 },
-                new double[] { 0.092, 0.053, 0.137 }
+                new double[] {67, 67, 67},
+                new double[] {8, 8, 8},
+                new double[] {60, 60, 60},
+                new double[] {8.33, 8.33, 8.33},
+                new double[] {12, 12, 12},
+                new double[] {0.218, 0.218, 0.218},
+                new double[] {1, 1, 1},
+                new double[] {0.092, 0.053, 0.137}
             };
             var lambda_r = new[] {20.4729, 0.8208, 11.8015};
-            var ro_ir = new []
+            var ro_ir = new[]
             {
-                new[] { 0.3056, 0.0123, 0.1761 },
-                new[] { 2.5591, 0.1026, 1.4752},
-                new[] { 0, 0, 0.1967},
+                new[] {0.3056, 0.0123, 0.1761},
+                new[] {2.5591, 0.1026, 1.4752},
+                new[] {0, 0, 0.1967},
                 new[] {0.6144, 0.0246, 0},
                 new[] {0, 0, 0.4917},
                 new[] {0, 0, 0.8202},
@@ -101,10 +114,37 @@ namespace Queue.UnitTests
                     lambda_ir[i][r] = ro_ir[i][r]*mi[i][r];
                 }
             }
-            var type = new[] { BcmpType.One, BcmpType.Three, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.Three };
+            var type = new[]
+            {
+                BcmpType.One, BcmpType.Three, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.Three
+            };
             var m = new[] {1, 0, 1, 4, 2, 66, 30, 0};
             var K = new[] {250, 20, 144};
             var result = _solver.GetParametersClosedContinuation(m, mi, type, K, lambda_ir);
+        }
+
+        [TestMethod]
+        public void TestClosedAll()
+        {
+            double[][] e = new[]
+            {
+                new double[] {1, 1, 0, 1, 0, 0, 1, 1},
+                new double[] {1, 1, 1, 0, 1, 1, 0, 1},
+                new double[] {1, 1, 0, 1, 0, 0, 5, 1}
+            };
+            var type = new[]
+            {
+                BcmpType.One, BcmpType.Three, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.Three
+            };
+            var m = new[] { 1, 0, 1, 4, 2, 5, 5, 0 };
+            var K = new[] { 250, 20, 144 };
+            double[][] mi = new[]
+            {
+                new double[] {67, 8, 60, 8.33, 12, 0.218, 1, 0.092},
+                new double[] {67, 8, 60, 8.33, 12, 0.218, 1, 0.053},
+                new double[] {67, 8, 60, 8.33, 12, 0.218, 1, 0.137}
+            };
+            var result = _solver.GetParametersClosed(m, mi, e, type, K);
 
         }
     }

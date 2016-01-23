@@ -68,8 +68,23 @@ namespace Queue.Algorithm
 
         public IEnumerable<SystemParameters> GetParametersClosed(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K)
         {
-            _lambda = FindLambdas(m, mi, e, type, K);
-            return GetParametersClosedContinuation(m,mi,type,K,_lambda);
+            var transposedE = new double[e[0].Length][];
+            var transposedMi = new double[mi[0].Length][];
+            for (int i = 0; i < e[0].Length; i++)
+            {
+                transposedE[i] = new double[e.Length];
+                transposedMi[i] = new double[mi.Length];
+            }
+            for (int i = 0; i < e.Length; i++)
+            {
+                for (int j = 0; j < e[i].Length; j++)
+                {
+                    transposedE[j][i] = e[i][j];
+                    transposedMi[j][i] = mi[i][j];
+                }
+            }
+            _lambda = FindLambdas(m, transposedMi, transposedE, type, K);
+            return GetParametersClosedContinuation(m, transposedMi, type,K,_lambda);
         }
         public double[][] FindLambdas(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K)
         {
@@ -92,6 +107,10 @@ namespace Queue.Algorithm
                 double epsilon = 0.00001;
                 var ro_i = new double[e.Length];
                 var fix_ir = new double[e.Length][];
+                for (int i = 0; i < e.Length; i++)
+                {
+                    fix_ir[i] = new double[e[i].Length];
+                }
                 double error;
                 bool stop = false;
                 while (!stop)
