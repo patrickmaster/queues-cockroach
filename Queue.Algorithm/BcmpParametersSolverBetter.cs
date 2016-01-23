@@ -71,6 +71,7 @@ namespace Queue.Algorithm
             _lambda = FindLambdas(m, mi, e, type, K);
             throw new NotImplementedException();
         }
+<<<<<<< HEAD
         public double[][] FindLambdas(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K)
         {
             double [][] lambda_ir = new double[e.Length][];
@@ -145,6 +146,10 @@ namespace Queue.Algorithm
             return lambda_ir;
         }
         public IEnumerable<SystemParameters> GetParametersClosedContinuation(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K, double[][] lambda)
+=======
+
+        public IEnumerable<SystemParameters> GetParametersClosedContinuation(int[] m, double[][] mi, BcmpType[] type, int[] K, double[][] lambda)
+>>>>>>> origin/master
         {
             //first dimension is system, second is class
             double[][] ro_ir = new double[mi.Length][];
@@ -162,14 +167,24 @@ namespace Queue.Algorithm
             double[] Pmi = new double[ro_i.Length];
             Pmi = FindPmi(m, ro_i);
             double[][] K_ir = new double[mi.Length][];
+            double[][] Q_ir = new double[mi.Length][];
             double[][] T_ir = new double[mi.Length][];
+            double[][] W_ir = new double[mi.Length][];
+            double[] K_i = new double[m.Length];
+            double[] Q_i = new double[m.Length];
             double[] T_i = new double[m.Length];
+            double[] W_i = new double[m.Length];
 
             for (int i = 0; i < mi.Length; i++)
             {
                 K_ir[i] = new double[mi[i].Length];
+                Q_ir[i] = new double[mi[i].Length];
                 T_ir[i] = new double[mi[i].Length];
+                W_ir[i] = new double[mi[i].Length];
+                K_i[i] = 0;
+                Q_i[i] = 0;
                 T_i[i] = 0;
+                W_i[i] = 0;
                 for (int r = 0; r < mi[i].Length; r++)
                 {
                     if (type[i] == BcmpType.One)
@@ -187,17 +202,61 @@ namespace Queue.Algorithm
                     {
                         K_ir[i][r] = ro_ir[i][r];
                     }
-                    T_ir[i][r] = K_ir[i][r]/lambda[i][r];
-                    T_i[i] = T_i[i] + T_ir[i][r];
+                    if (ro_ir[i][r] != 0)
+                    {
+                        T_ir[i][r] = K_ir[i][r] / lambda[i][r];
+                        if (type[i] == BcmpType.One)
+                        {
+                            W_ir[i][r] = T_ir[i][r] - 1.0 / mi[i][r];
+                        }
+                        else
+                        {
+                            W_ir[i][r] = 0;
+                        }
+                        Q_ir[i][r] = lambda[i][r] * W_ir[i][r];
+                        K_i[i] = K_i[i] + K_ir[i][r];
+                        Q_i[i] = Q_i[i] + Q_ir[i][r];
+                        T_i[i] = T_i[i] + T_ir[i][r];
+                        W_i[i] = W_i[i] + W_ir[i][r];
+                    }
+                    else
+                    {
+                        T_ir[i][r] = 0;
+                        Q_ir[i][r] = 0;
+                        W_ir[i][r] = 0;
+                    }
                 }
             }
+            PrintParameters(K_ir, T_ir, Q_ir, W_ir);
             var result = new SystemParameters[mi.Length];
             for (int i = 0; i < mi.Length; i++)
             {
-                result[i] = new SystemParameters { ServiceTime = T_i[i] };
+                result[i] = new SystemParameters
+                    {
+                        AverageEntriesCount = K_i[i],
+                        AverageQueueLength = Q_i[i],
+                        QueueTime = W_i[i],
+                        ServiceTime = T_i[i]
+                };
             }
 
             return result;
+        }
+
+        private void PrintParameters(double[][] K_ir, double[][] T_ir, double[][] Q_ir, double[][] W_ir)
+        {
+            for (int i = 0; i < K_ir.Length; i++)
+            {
+                Console.WriteLine("System " + i + ": ");
+                for (int r = 0; r < K_ir[i].Length; r++)
+                {
+                    Console.Write("Class " + r + ": ");
+                    Console.Write("Average Entries Count = " + K_ir[i][r]);
+                    Console.Write(" Average Queue Length = " + Q_ir[i][r]);
+                    Console.Write(" Queue Time = " + W_ir[i][r]);
+                    Console.WriteLine(" Service Time = " + T_ir[i][r]);
+                }
+            }
         }
 
         public double[] FindPmi(int[] m, double[] ro_i)
@@ -210,7 +269,7 @@ namespace Queue.Algorithm
                 {
                     sum = sum + Math.Pow(m[i] * ro_i[i], j) / (j.Factorial());
                 }
-                Pmi[i] = Math.Pow(m[i] * ro_i[i], m[i]) / (m[i].Factorial() * (1 - ro_i[i])) * 1 / (sum + Math.Pow(m[i] * ro_i[i], m[i]) / (m[i].Factorial()) * 1 / (1 - ro_i[i]));
+                Pmi[i] = Math.Pow(m[i] * ro_i[i], m[i]) / (m[i].Factorial() * (1.0 - ro_i[i])) * 1 / (sum + Math.Pow(m[i] * ro_i[i], m[i]) / (m[i].Factorial()) * 1.0 / (1.0 - ro_i[i]));
             }
             return Pmi;
         }
