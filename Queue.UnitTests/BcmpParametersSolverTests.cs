@@ -42,7 +42,7 @@ namespace Queue.UnitTests
 
             var result = _solver.GetParameters(m, mi, lambda, type);
         }
-<<<<<<< HEAD
+
         [TestMethod]
         public void GetLambdasTest()
         {
@@ -65,7 +65,6 @@ namespace Queue.UnitTests
             var lambdas = _solver.FindLambdas(m, mi, e, type, K);
             System.Console.WriteLine("lambdas: "+ lambdas.ToString());
         }
-=======
 
         [TestMethod]
         public void ClosedParametersTest()
@@ -108,7 +107,5 @@ namespace Queue.UnitTests
             var result = _solver.GetParametersClosedContinuation(m, mi, type, K, lambda_ir);
 
         }
-
->>>>>>> origin/master
     }
-};
+}

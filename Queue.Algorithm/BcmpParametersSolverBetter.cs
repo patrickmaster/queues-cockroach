@@ -69,9 +69,8 @@ namespace Queue.Algorithm
         public IEnumerable<SystemParameters> GetParametersClosed(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K)
         {
             _lambda = FindLambdas(m, mi, e, type, K);
-            throw new NotImplementedException();
+            return GetParametersClosedContinuation(m,mi,type,K,_lambda);
         }
-<<<<<<< HEAD
         public double[][] FindLambdas(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K)
         {
             double [][] lambda_ir = new double[e.Length][];
@@ -145,11 +144,7 @@ namespace Queue.Algorithm
             }
             return lambda_ir;
         }
-        public IEnumerable<SystemParameters> GetParametersClosedContinuation(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K, double[][] lambda)
-=======
-
         public IEnumerable<SystemParameters> GetParametersClosedContinuation(int[] m, double[][] mi, BcmpType[] type, int[] K, double[][] lambda)
->>>>>>> origin/master
         {
             //first dimension is system, second is class
             double[][] ro_ir = new double[mi.Length][];
