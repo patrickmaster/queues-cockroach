@@ -68,9 +68,82 @@ namespace Queue.Algorithm
 
         public IEnumerable<SystemParameters> GetParametersClosed(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K)
         {
+            _lambda = FindLambdas(m, mi, e, type, K);
             throw new NotImplementedException();
         }
-
+        public double[][] FindLambdas(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K)
+        {
+            double [][] lambda_ir = new double[e.Length][];
+            for (int i = 0; i < e.Length; i++)
+            {
+                lambda_ir[i] = new double[e[0].Length];
+            }
+            double[] lambda_r = new double[e[0].Length];
+            for (int r = 0; r < e[0].Length; r++)
+            {
+                for (int i = 0; i < e.Length; i++)
+                {
+                    lambda_ir[i][r] = 0.00001;
+                }
+                lambda_r[r] = 0.00001;
+            }
+            for (int r = 0; r < e[0].Length; r++)
+            {
+                double epsilon = 0.00001;
+                var ro_i = new double[e.Length];
+                var fix_ir = new double[e.Length][];
+                double error;
+                bool stop = false;
+                while (!stop)
+                {
+                    for (int i = 0; i < e.Length; i++)
+                    {
+                        for (int rr = 0; rr < e[0].Length; rr++)
+                        {
+                            ro_i[i] += (lambda_ir[i][rr] / mi[i][rr]);
+                        }
+                    }
+                    double[] Pmi = FindPmi(m, ro_i);
+                    for (int i = 0; i < m.Length; i++)
+                    {
+                        if (type[i] == BcmpType.One && m[i] == 1)
+                        {
+                            fix_ir[i][r] = (e[i][r] / mi[i][r]) / (1.0 - (K[r] - 1.0) / K[r] * ro_i[i]);
+                        }
+                        else if (type[i] == BcmpType.One && m[i] > 1)
+                        {
+                            fix_ir[i][r] = e[i][r] / mi[i][r] + (e[i][r] / (m[i] * mi[i][r])) / (1.0 - (K[r] - m[i] - 1.0) / (K[r] - m[i]) * ro_i[i]) * Pmi[i];
+                        }
+                        else
+                        {
+                            fix_ir[i][r] = e[i][r] / mi[i][r];
+                        }
+                    }
+                    double sumFix = 0;
+                    var lambda_iOld = lambda_r[r];
+                    for (int i = 0; i < lambda_ir.Length; i++)
+                    {
+                        sumFix += fix_ir[i][r];
+                    }
+                    lambda_r[r] = K[r] / sumFix;
+                    double sumLambdas = 0;
+                    for (int i = 0; i < lambda_ir.Length; i++)
+                    {
+                        sumLambdas += Math.Pow(lambda_r[r] - lambda_iOld, 2);
+                    }
+                    error = Math.Sqrt(sumLambdas);
+                    if (error <= epsilon)
+                    {
+                        stop = true;
+                    }
+                }
+                for (int i = 0; i < e.Length; i++)
+                {
+                    lambda_ir[i][r] = e[i][r] * lambda_r[r];
+                }
+            }
+            return lambda_ir;
+        }
         public IEnumerable<SystemParameters> GetParametersClosedContinuation(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K, double[][] lambda)
         {
             //first dimension is system, second is class
