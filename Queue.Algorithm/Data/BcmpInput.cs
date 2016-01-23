@@ -10,7 +10,7 @@ namespace Queue.Algorithm.Data
 
         public double[][][] P { get; set; }
 
-        public int K { get; set; }
+        public int[] K { get; set; }
 
         public BcmpType[] Type { get; set; }
     }

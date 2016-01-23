@@ -15,7 +15,6 @@ namespace Queue.ConsoleUI.DataLoading
             BcmpInput input = new BcmpInput();
             XmlDocument bcmpInput = new XmlDocument();
             bcmpInput.Load(filename);
-            bool closedSystem = false;
             var nodeType = bcmpInput.SelectSingleNode("/BCMP/Type");
             if (nodeType != null)
             {
@@ -34,6 +33,7 @@ namespace Queue.ConsoleUI.DataLoading
             if (nodes != null)
             {
                 input.Lambda = new double[nodes.Count];
+                input.K = new int[nodes.Count];
                 input.Mi = new double[nodes.Count][];
                 input.P = new double[nodes.Count][][];
                 for(int i = 0; i < nodes.Count; i++)
@@ -41,28 +41,17 @@ namespace Queue.ConsoleUI.DataLoading
                     var nodeLambda = nodes[i].SelectSingleNode("Lambda");
                     if (nodeLambda != null)
                     {
-                        if (closedSystem == true)
+                        input.Lambda[i] = Double.Parse(nodeLambda.InnerText.Trim());
+                        if (input.Lambda[i] == 0)
                         {
-                            input.Lambda[i] = 0;
-                        }
-                        else
-                        {
-                            input.Lambda[i] = Double.Parse(nodeLambda.InnerText.Trim());
-                            if (i == 0)
+                            var nodeK = nodes[i].SelectSingleNode("K");
+                            if (nodeK != null)
                             {
-                                if (input.Lambda[0] == 0)
-                                {
-                                    closedSystem = true;
-                                    var nodeK = bcmpInput.SelectSingleNode("/BCMP/K");
-                                    if (nodeK != null)
-                                    {
-                                        input.K = Int32.Parse(nodeK.InnerText.Trim());
-                                    }
-                                    else
-                                    {
-                                        throw new UserInputException("Wrong xml file format");
-                                    }
-                                }
+                                input.K[i] = Int32.Parse(nodeK.InnerText.Trim());
+                            }
+                            else
+                            {
+                                throw new UserInputException("Wrong xml file format");
                             }
                         }
                     }

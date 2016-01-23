@@ -83,6 +83,7 @@
     <Content Include="DataFiles\BCMP.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="DataFiles\BCMPClosed.xml" />
     <Content Include="DataFiles\ClosedJackson.xml" />
     <Content Include="DataFiles\Jackson.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
