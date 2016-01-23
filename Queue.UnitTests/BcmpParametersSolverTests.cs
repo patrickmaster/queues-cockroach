@@ -66,9 +66,9 @@ namespace Queue.UnitTests
                 new double[] {12, 12, 12},
                 new double[] {0.218, 0.218, 0.218},
                 new double[] {1, 1, 1},
-                new double[] {0.092, 0.053, 0.137}
+                new double[] {0.092, 0.137, 0.053 }
             };
-            int[] K = new int[3] {250, 20, 144};
+            int[] K = new int[3] {250, 144, 20};
             BcmpType[] type = new BcmpType[]
             {
                 BcmpType.One, BcmpType.Three, BcmpType.One, BcmpType.One,
@@ -76,7 +76,14 @@ namespace Queue.UnitTests
             };
             int[] m = new int[] {1, 0, 1, 4, 2, 5, 5, 0};
             var lambdas = _solver.FindLambdas(m, mi, e, type, K);
-            System.Console.WriteLine("lambdas: " + lambdas.ToString());
+            for (int i = 0; i < lambdas.Length; i++)
+            {
+                for (int j = 0; j < lambdas[i].Length; j++)
+                {
+                    Debug.Write(lambdas[i][j] + "\t");
+                }
+                Debug.WriteLine("");
+            }
         }
 
         [TestMethod]
@@ -136,13 +143,13 @@ namespace Queue.UnitTests
             {
                 BcmpType.One, BcmpType.Three, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.Three
             };
-            var m = new[] { 1, 0, 1, 4, 2, 5, 5, 0 };
-            var K = new[] { 250, 20, 144 };
+            int[] m = new int[] { 1, 0, 1, 4, 2, 5, 5, 0 };
+            var K = new[] { 250, 144, 20 };
             double[][] mi = new[]
             {
                 new double[] {67, 8, 60, 8.33, 12, 0.218, 1, 0.092},
-                new double[] {67, 8, 60, 8.33, 12, 0.218, 1, 0.053},
-                new double[] {67, 8, 60, 8.33, 12, 0.218, 1, 0.137}
+                new double[] {67, 8, 60, 8.33, 12, 0.218, 1, 0.137},
+                new double[] {67, 8, 60, 8.33, 12, 0.218, 1, 0.053}
             };
             var result = _solver.GetParametersClosed(m, mi, e, type, K);
 

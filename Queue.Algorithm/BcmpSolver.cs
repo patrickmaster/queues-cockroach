@@ -30,14 +30,7 @@ namespace Queue.Algorithm
         public Output Solve(BcmpInput input)
         {
             double[][] lambda; //lambdas is e in closed network
-            if (input.Lambda[0] != 0) //open network
-            {
-                lambda = GetLambda(input);
-            }
-            else
-            {
-                lambda = GetLambdaClosed(input);
-            }
+            lambda = GetLambda(input); //closed BCMP also use open BCMP lamda solver
             var cockroach = _cockroachFactory.GetCockroach(input, lambda);
 
             CockroachResult<int[]> bestState = null;
