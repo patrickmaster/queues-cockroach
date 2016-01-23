@@ -6,6 +6,13 @@ using Queue.Algorithm.Data;
 
 namespace Queue.Algorithm
 {
+
+    internal interface IBcmpParametersSolver
+    {
+        IEnumerable<SystemParameters> GetParameters(int[] m, double[][] mi, double[][] lambda, BcmpType[] type);
+        IEnumerable<SystemParameters> GetParametersClosed(int[] state, double[][] mi, double[][] lambda, BcmpType[] type, int[] K);
+    }
+
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class BcmpParametersSolverBetter : IBcmpParametersSolver
     {
@@ -57,6 +64,11 @@ namespace Queue.Algorithm
             }
 
             return result;
+        }
+
+        public IEnumerable<SystemParameters> GetParametersClosed(int[] state, double[][] mi, double[][] lambda, BcmpType[] type, int[] K)
+        {
+            throw new NotImplementedException();
         }
 
         private double GetServiceTimeElement(int r, int i)
