@@ -56,22 +56,34 @@ namespace Queue.Algorithm
             }
 
             for (int i = 0; i < length; i++)
-                result[i] = SolveSystemClosed(m[i], K_i[i], lambda_i[i]);
+                result[i] = SolveSystemClosed(m[i], mi[i], K_i[i], lambda_i[i]);
 
             return result;
         }
 
-        private SystemParameters SolveSystemClosed(int m, double K_i, double lambda_i)
+        private SystemParameters SolveSystemClosed(int m, double mi, double K_i, double lambda_i)
         {
-            double T_i = K_i/lambda_i;
-            double W_i = T_i - 1.0/m;
-            double Q_i = lambda_i*W_i;
+            double T_i;
+            double W_i;
+            double Q_i;
+            if (lambda_i != 0)
+            {
+                T_i = K_i / lambda_i;
+                W_i = T_i - 1.0 / mi;
+                Q_i = lambda_i * W_i;
+            }
+            else
+            {
+                T_i = 0;
+                W_i = 0;
+                Q_i = 0;
+            }
 
             return new SystemParameters
             {
                 AverageEntriesCount = K_i,
                 AverageQueueLength = Q_i,
-                QueueTime = Q_i,
+                QueueTime = W_i,
                 ServiceTime = T_i
             };
         }
