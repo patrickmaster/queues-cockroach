@@ -98,20 +98,22 @@ namespace Queue.UnitTests
                 new double[] {12, 12, 12},
                 new double[] {0.218, 0.218, 0.218},
                 new double[] {1, 1, 1},
-                new double[] {0.092, 0.053, 0.137}
+                new double[] {0.092, 0.137, 0.053 }
             };
-            var lambda_r = new[] {20.4729, 0.8208, 11.8015};
+            var lambda_r = new[] { 20.4729, 11.8015, 0.8208 };
             var ro_ir = new[]
             {
-                new[] {0.3056, 0.0123, 0.1761},
-                new[] {2.5591, 0.1026, 1.4752},
-                new[] {0, 0, 0.1967},
-                new[] {0.6144, 0.0246, 0},
-                new[] {0, 0, 0.4917},
-                new[] {0, 0, 0.8202},
-                new[] {0.6824, 0.1368, 0},
-                new[] {222.5316, 15.4870, 86.1423}
+                new[] {0.3056,   0.1761,  0.0123},
+                new[] {2.5591,   1.4752,  0.1026},
+                new[] {0,    0.1967,  0},
+                new[] {0.6144,   0,   0.0246},
+                new[] {0,    0.4917,  0},
+                new[] {0,    0.8202,  0},
+                new[] {0.6824,   0,  0.1368},
+                new[] { 222.5316, 86.1423, 15.4870 }
             };
+            int[] m = new int[] { 1, 0, 1, 4, 2, 5, 5, 0 };
+            var K = new[] { 250, 144, 20 };
             var lambda_ir = new double[mi.Length][];
             for (int i = 0; i < mi.Length; i++)
             {
@@ -125,8 +127,6 @@ namespace Queue.UnitTests
             {
                 BcmpType.One, BcmpType.Three, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.Three
             };
-            var m = new[] {1, 0, 1, 4, 2, 66, 30, 0};
-            var K = new[] {250, 20, 144};
             var result = _solver.GetParametersClosedContinuation(m, mi, type, K, lambda_ir);
         }
 
