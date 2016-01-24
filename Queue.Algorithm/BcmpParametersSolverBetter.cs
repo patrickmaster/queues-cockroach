@@ -88,50 +88,50 @@ namespace Queue.Algorithm
         }
         public double[][] FindLambdas(int[] m, double[][] mi, double[][] e, BcmpType[] type, int[] K)
         {
+            double epsilon = 0.00001;
+            double Kg=0;
             double [][] lambda_ir = new double[e.Length][];
             for (int i = 0; i < e.Length; i++)
             {
                 lambda_ir[i] = new double[e[0].Length];
             }
+            var fix_ir = new double[e.Length][];
             double[] lambda_r = new double[e[0].Length];
             for (int r = 0; r < e[0].Length; r++)
             {
+                Kg += K[r];
                 for (int i = 0; i < e.Length; i++)
                 {
                     lambda_ir[i][r] = 0.00001;
+                    fix_ir[i] = new double[e[i].Length];
                 }
                 lambda_r[r] = 0.00001;
             }
+            var ro_i = new double[e.Length];
             for (int r = 0; r < e[0].Length; r++)
             {
-                double epsilon = 0.00001;
-                var ro_i = new double[e.Length];
-                var fix_ir = new double[e.Length][];
-                for (int i = 0; i < e.Length; i++)
-                {
-                    fix_ir[i] = new double[e[i].Length];
-                }
                 double error;
                 bool stop = false;
                 while (!stop)
                 {
                     for (int i = 0; i < e.Length; i++)
                     {
+                        ro_i[i] = 0;
                         for (int rr = 0; rr < e[0].Length; rr++)
                         {
-                            ro_i[i] += (lambda_ir[i][rr] / mi[i][rr]);
+                            ro_i[i] += (lambda_ir[i][rr] /(m[i] * mi[i][rr]));
                         }
                     }
                     double[] Pmi = FindPmi(m, ro_i);
                     for (int i = 0; i < m.Length; i++)
                     {
-                        if (type[i] == BcmpType.One && m[i] == 1)
+                        if (type[i] == BcmpType.One && m[i] == 1 )
                         {
-                            fix_ir[i][r] = (e[i][r] / mi[i][r]) / (1.0 - (K[r] - 1.0) / K[r] * ro_i[i]);
+                            fix_ir[i][r] = (e[i][r] / mi[i][r]) / (1.0 - (Kg - 1.0) / Kg * ro_i[i]);
                         }
                         else if (type[i] == BcmpType.One && m[i] > 1)
                         {
-                            fix_ir[i][r] = e[i][r] / mi[i][r] + (e[i][r] / (m[i] * mi[i][r])) / (1.0 - (K[r] - m[i] - 1.0) / (K[r] - m[i]) * ro_i[i]) * Pmi[i];
+                            fix_ir[i][r] = e[i][r] / mi[i][r] + (e[i][r] / (m[i] * mi[i][r])) / (1.0 - (Kg - m[i] - 1.0) / (Kg - m[i]) * ro_i[i]) * Pmi[i];
                         }
                         else
                         {
@@ -145,20 +145,16 @@ namespace Queue.Algorithm
                         sumFix += fix_ir[i][r];
                     }
                     lambda_r[r] = K[r] / sumFix;
-                    double sumLambdas = 0;
-                    for (int i = 0; i < lambda_ir.Length; i++)
-                    {
-                        sumLambdas += Math.Pow(lambda_r[r] - lambda_iOld, 2);
-                    }
+                    double sumLambdas = Math.Pow(lambda_r[r] - lambda_iOld, 2);
                     error = Math.Sqrt(sumLambdas);
                     if (error <= epsilon)
                     {
                         stop = true;
                     }
-                }
-                for (int i = 0; i < e.Length; i++)
-                {
-                    lambda_ir[i][r] = e[i][r] * lambda_r[r];
+                    for (int i = 0; i < e.Length; i++)
+                    {
+                        lambda_ir[i][r] = e[i][r] * lambda_r[r];
+                    }
                 }
             }
             return lambda_ir;
@@ -283,7 +279,7 @@ namespace Queue.Algorithm
                 {
                     sum = sum + Math.Pow(m[i] * ro_i[i], j) / (j.Factorial());
                 }
-                Pmi[i] = Math.Pow(m[i] * ro_i[i], m[i]) / (m[i].Factorial() * (1.0 - ro_i[i])) * 1 / (sum + Math.Pow(m[i] * ro_i[i], m[i]) / (m[i].Factorial()) * 1.0 / (1.0 - ro_i[i]));
+                Pmi[i] = (Math.Pow(m[i] * ro_i[i], m[i]) / (m[i].Factorial() * (1.0 - ro_i[i]))) * (1.0 / (sum + (Math.Pow(m[i] * ro_i[i], m[i]) / (m[i].Factorial())) * (1.0 / (1.0 - ro_i[i]))));
             }
             return Pmi;
         }
