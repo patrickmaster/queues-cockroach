@@ -53,7 +53,7 @@ namespace Queue.UnitTests
         public void TestClosed()
         {
             var e = new[] { 1, 2, 7.5, 7.25 };
-            var m = new[] { 1, 1, 1, 1 };
+            var m = new[] { 1, 1, 5, 5 };
             var mi = new double[] { 1, 2, 1, 1 };
             var K = 10;
             bool CorrectEntieres = true;
@@ -62,19 +62,18 @@ namespace Queue.UnitTests
             var result = _solver.SolveParametersClosed(m, mi, e, K).ToArray();
             for (int i = 0; i < result.Length; i++)
             {
+                Debug.WriteLine("System number: " + i.ToString());
+                Debug.WriteLine("AverageEntriesCount: " + result[i].AverageEntriesCount.ToString());
+                Debug.WriteLine("AverageQueueLength: " + result[i].AverageQueueLength.ToString());
+                Debug.WriteLine("ServiceTime: " + result[i].ServiceTime.ToString());
+                Debug.WriteLine("QueueTime: " + result[i].QueueTime.ToString());
                 if (result[i].AverageEntriesCount < result[i].AverageQueueLength)
                 {
                     CorrectEntieres = false;
-                    Debug.WriteLine("System number: " + i.ToString());
-                    Debug.WriteLine("CorrectEntieres: " + result[i].AverageEntriesCount.ToString());
-                    Debug.WriteLine("AverageQueueLength: " + result[i].AverageQueueLength.ToString());
                 }
                 if (result[i].ServiceTime < result[i].QueueTime)
                 {
                     CorrectTimes = false;
-                    Debug.WriteLine("System number: " + i.ToString());
-                    Debug.WriteLine("ServiceTime: " + result[i].ServiceTime.ToString());
-                    Debug.WriteLine("QueueTime: " + result[i].QueueTime.ToString());
                 }
             }
             CorrectEntieres.ShouldBeEquivalentTo(true);

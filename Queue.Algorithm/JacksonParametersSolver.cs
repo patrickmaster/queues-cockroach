@@ -39,7 +39,7 @@ namespace Queue.Algorithm
             var ro_i = new double[e.Length];
             for (int i = 0; i < e.Length; i++)
             {
-                ro_i[i] = lambda_i[i] / mi[i];
+                ro_i[i] = lambda_i[i] /(m[i] * mi[i]);
             }
             double[] Pmi = FindPmi(m, mi, e, K, ro_i);
             double[] K_i = new double[e.Length];
