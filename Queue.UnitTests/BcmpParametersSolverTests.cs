@@ -143,7 +143,7 @@ namespace Queue.UnitTests
             {
                 BcmpType.One, BcmpType.Three, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.One, BcmpType.Three
             };
-            int[] m = new int[] { 1, 0, 1, 4, 2, 5, 5, 0 };
+            int[] m = new int[] { 1, 0, 1, 4, 2, 66, 30, 0 };
             var K = new[] { 250, 144, 20 };
             double[][] mi = new[]
             {

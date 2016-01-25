@@ -170,7 +170,7 @@ namespace Queue.Algorithm
                 ro_i[i] = 0;
                 for (int r = 0; r < mi[i].Length; r++)
                 {
-                    ro_ir[i][r] = lambda[i][r]/mi[i][r];
+                    ro_ir[i][r] = lambda[i][r]/(mi[i][r] * m[i]);
                     ro_i[i] = ro_i[i] + ro_ir[i][r];
                 }
             }
